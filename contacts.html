@@ -375,6 +375,30 @@
         </p>
     </footer>
 
+    <!-- МОДАЛЬНЕ ВІКНО: імітація успішного надсилання (з'являється лише після успішної клієнтської валідації) -->
+    <div id="successModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-primary/70 p-4">
+        <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modalTitle"
+            aria-describedby="modalDescription"
+            class="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6 text-center shadow-[0_20px_60px_-15px_rgba(23,36,58,0.5)] sm:p-8"
+        >
+            <span class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-green-100 text-xl text-green-600" aria-hidden="true">
+                <i class="fa-solid fa-check"></i>
+            </span>
+            <h2 id="modalTitle" class="mb-3 text-xl font-semibold leading-snug text-primary">Дякуємо! Ваше повідомлення успішно надіслано.</h2>
+            <p id="modalDescription" class="mb-6 text-sm text-muted">Демонстрація: форма успішно пройшла клієнтську валідацію. Дані нікуди не надсилаються, бо до сайту не підключено сервер.</p>
+            <button
+                type="button"
+                id="closeModalButton"
+                class="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-primary px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+            >
+                Закрити
+            </button>
+        </div>
+    </div>
+
     <!-- Mobile menu script (скопійовано з index.html без змін) -->
     <script>
         const menuBtn = document.getElementById('menu-btn');
