@@ -69,6 +69,9 @@ const agreementError = document.getElementById('agreementError');
 
 const phoneHint = document.getElementById('phoneHint');
 
+const successModal = document.getElementById('successModal');
+const closeModalButton = document.getElementById('closeModalButton');
+
 /* =========================================================
    4. Функції керування станами інтерфейсу
    ========================================================= */
@@ -232,6 +235,63 @@ function handleBlur(field) {
     field.validate();
 }
 
+/* =========================================================
+   7.1. Очищення форми та модальне вікно
+   ========================================================= */
+
+// Елемент, який мав фокус до відкриття вікна (туди повертаємо фокус після закриття)
+let lastFocusedElement = null;
+
+/** Чи відкрите модальне вікно. */
+function isModalOpen() {
+    return Boolean(successModal) && !successModal.classList.contains('hidden');
+}
+
+/** Очищає поля, повертає їх до звичайного стану й скидає «торкнуті» поля. */
+function resetForm() {
+    form.reset();
+    fields.forEach((field) => clearError(field.input, field.error));
+    touchedFields.clear();
+    resetPhoneHint();
+}
+
+/** Відкриває модальне вікно, блокує прокрутку сторінки й переносить фокус на кнопку «Закрити». */
+function openSuccessModal() {
+    lastFocusedElement = document.activeElement;
+    successModal.classList.remove('hidden');
+    successModal.classList.add('flex');
+    document.body.classList.add('overflow-hidden');
+    closeModalButton.focus();
+}
+
+/** Закриває модальне вікно й повертає фокус туди, де він був. */
+function closeSuccessModal() {
+    successModal.classList.add('hidden');
+    successModal.classList.remove('flex');
+    document.body.classList.remove('overflow-hidden');
+    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+        lastFocusedElement.focus();
+    }
+}
+
+if (successModal && closeModalButton) {
+    closeModalButton.addEventListener('click', closeSuccessModal);
+
+    document.addEventListener('keydown', (event) => {
+        if (!isModalOpen()) {
+            return;
+        }
+        if (event.key === 'Escape') {
+            // Escape закриває вікно
+            closeSuccessModal();
+        } else if (event.key === 'Tab') {
+            // У вікні лише одна кнопка, тому фокус не покидає діалог (Tab і Shift + Tab)
+            event.preventDefault();
+            closeModalButton.focus();
+        }
+    });
+}
+
 if (form) {
     fields.forEach((field) => {
         if (field.input.type === 'checkbox') {
@@ -257,6 +317,11 @@ if (form) {
         // Забороняємо стандартне надсилання й перезавантаження сторінки
         event.preventDefault();
 
+        // Поки модальне вікно відкрите, повторні надсилання ігноруємо
+        if (isModalOpen()) {
+            return;
+        }
+
         // Під час submit усі поля вважаються «торкнутими»; за потреби нормалізуємо значення
         // (потрібно, якщо користувач натиснув Enter у полі й blur не відбувся)
         fields.forEach((field) => {
@@ -277,8 +342,11 @@ if (form) {
             return;
         }
 
-        // Усі поля пройшли перевірку. Реального надсилання на сервер немає.
-        // (Модальне вікно та очищення полів додамо на наступних етапах.)
-        console.log('Форма пройшла клієнтську валідацію.');
+        // Усі поля пройшли перевірку. Реального надсилання на сервер немає:
+        // це імітація успішного надсилання (очищаємо поля й показуємо модальне вікно).
+        resetForm();
+        if (successModal) {
+            openSuccessModal();
+        }
     });
 }
