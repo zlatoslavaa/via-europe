@@ -127,67 +127,84 @@
     <!-- Основний вміст сторінки -->
     <main>
 
-        <!-- СЕКЦІЯ ЗВОРОТНОГО ЗВ'ЯЗКУ: адаптивна форма (Tailwind CSS, mobile-first) -->
-        <section class="bg-secondary px-[7%] py-12 sm:py-[72px]" id="contact" aria-labelledby="contact-title">
-            <div class="mx-auto max-w-[720px]">
+        <!-- ЗАГОЛОВОК СТОРІНКИ: градієнтний фон у кольорах сайту -->
+        <section class="relative overflow-hidden bg-gradient-to-br from-primary to-[#2A4066] px-[7%] py-12 text-white sm:py-16" aria-labelledby="contact-title">
+            <!-- Декоративні кола (приховані від допоміжних технологій) -->
+            <div class="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/5" aria-hidden="true"></div>
+            <div class="pointer-events-none absolute -bottom-24 left-1/3 h-64 w-64 rounded-full bg-white/5" aria-hidden="true"></div>
 
-                <!-- Заголовок і вступ -->
-                <header class="mb-8">
-                    <h1 id="contact-title" class="mb-3 font-heading text-[28px] font-bold leading-tight text-primary sm:text-[32px]">Зв'яжіться з нами</h1>
-                    <p class="mb-2 text-muted">Маєте запитання про подорожі Європою або хочете залишити відгук? Заповніть форму, і ми будемо раді почути вас.</p>
-                    <p class="text-sm text-muted">Усі поля обов'язкові для заповнення.</p>
-                </header>
+            <div class="relative mx-auto max-w-[1100px]">
+                <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-text-light">Зворотний зв'язок</p>
+                <h1 id="contact-title" class="mb-4 font-heading text-[28px] font-bold leading-tight sm:text-4xl">Зв'яжіться з нами</h1>
+                <p class="max-w-[560px] text-text-light">Маєте запитання про подорожі Європою або хочете залишити відгук? Заповніть форму, і ми будемо раді почути вас.</p>
+            </div>
+        </section>
+
+        <!-- СЕКЦІЯ ФОРМИ: форма + бокова панель (на десктопі в дві колонки) -->
+        <section class="bg-secondary px-[7%] py-10 sm:py-14" id="contact" aria-label="Форма зворотного зв'язку">
+            <div class="mx-auto grid max-w-[1100px] gap-6 lg:grid-cols-[1fr_340px] lg:items-start lg:gap-8">
 
                 <!-- novalidate вимикає стандартні підказки браузера, щоб далі працювала наша JS-валідація -->
                 <form id="feedbackForm" action="#" method="post" novalidate
-                      class="grid grid-cols-1 gap-5 rounded-xl border border-border bg-white p-5 sm:p-8 md:grid-cols-2 md:gap-6">
+                      class="grid grid-cols-1 gap-5 rounded-2xl border border-border bg-white p-5 shadow-[0_12px_40px_-12px_rgba(23,36,58,0.18)] sm:p-8 md:grid-cols-2 md:gap-6">
+
+                    <p class="text-sm text-muted md:col-span-2">Усі поля обов'язкові для заповнення.</p>
 
                     <!-- Ім'я (на всю ширину) -->
                     <div class="md:col-span-2">
                         <label for="username" class="mb-1.5 block text-sm font-medium text-primary">Ім'я</label>
-                        <input
-                            type="text"
-                            id="username"
-                            name="username"
-                            autocomplete="name"
-                            required
-                            aria-describedby="usernameError"
-                            aria-invalid="false"
-                            class="block min-h-12 w-full rounded-lg border border-muted/60 bg-white px-4 py-3 text-base text-primary transition-colors duration-200 hover:border-muted focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-primary"
-                        >
+                        <div class="relative">
+                            <i class="fa-regular fa-user pointer-events-none absolute left-4 text-muted top-1/2 -translate-y-1/2" aria-hidden="true"></i>
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                autocomplete="name"
+                                required
+                                aria-describedby="usernameError"
+                                aria-invalid="false"
+                                class="block min-h-12 w-full rounded-xl border border-muted/60 bg-white py-3 pl-11 pr-4 text-base text-primary transition-colors duration-200 hover:border-muted focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-primary"
+                            >
+                        </div>
                         <p id="usernameError" class="mt-1.5 hidden text-sm text-red-600">Введіть ім'я (мінімум 2 символи).</p>
                     </div>
 
                     <!-- Email (від md — у парі з телефоном) -->
                     <div>
                         <label for="email" class="mb-1.5 block text-sm font-medium text-primary">Електронна пошта</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            autocomplete="email"
-                            required
-                            aria-describedby="emailError"
-                            aria-invalid="false"
-                            class="block min-h-12 w-full rounded-lg border border-muted/60 bg-white px-4 py-3 text-base text-primary transition-colors duration-200 hover:border-muted focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-primary"
-                        >
+                        <div class="relative">
+                            <i class="fa-regular fa-envelope pointer-events-none absolute left-4 text-muted top-1/2 -translate-y-1/2" aria-hidden="true"></i>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                autocomplete="email"
+                                required
+                                aria-describedby="emailError"
+                                aria-invalid="false"
+                                class="block min-h-12 w-full rounded-xl border border-muted/60 bg-white py-3 pl-11 pr-4 text-base text-primary transition-colors duration-200 hover:border-muted focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-primary"
+                            >
+                        </div>
                         <p id="emailError" class="mt-1.5 hidden text-sm text-red-600">Введіть коректну електронну адресу.</p>
                     </div>
 
                     <!-- Телефон -->
                     <div>
                         <label for="phone" class="mb-1.5 block text-sm font-medium text-primary">Номер телефону</label>
-                        <input
-                            type="tel"
-                            id="phone"
-                            name="phone"
-                            inputmode="tel"
-                            autocomplete="tel"
-                            required
-                            aria-describedby="phoneHint phoneError"
-                            aria-invalid="false"
-                            class="block min-h-12 w-full rounded-lg border border-muted/60 bg-white px-4 py-3 text-base text-primary transition-colors duration-200 hover:border-muted focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-primary"
-                        >
+                        <div class="relative">
+                            <i class="fa-solid fa-phone pointer-events-none absolute left-4 text-muted top-1/2 -translate-y-1/2" aria-hidden="true"></i>
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                inputmode="tel"
+                                autocomplete="tel"
+                                required
+                                aria-describedby="phoneHint phoneError"
+                                aria-invalid="false"
+                                class="block min-h-12 w-full rounded-xl border border-muted/60 bg-white py-3 pl-11 pr-4 text-base text-primary transition-colors duration-200 hover:border-muted focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-primary"
+                            >
+                        </div>
                         <p id="phoneHint" class="mt-1.5 text-sm text-muted">Формат: +380XXXXXXXXX (без пробілів і дужок).</p>
                         <p id="phoneError" class="mt-1.5 hidden text-sm text-red-600">Введіть номер у форматі +380XXXXXXXXX.</p>
                     </div>
@@ -195,20 +212,23 @@
                     <!-- Повідомлення (на всю ширину) -->
                     <div class="md:col-span-2">
                         <label for="message" class="mb-1.5 block text-sm font-medium text-primary">Повідомлення</label>
-                        <textarea
-                            id="message"
-                            name="message"
-                            rows="5"
-                            required
-                            aria-describedby="messageError"
-                            aria-invalid="false"
-                            class="block min-h-[140px] w-full resize-y rounded-lg border border-muted/60 bg-white px-4 py-3 text-base text-primary transition-colors duration-200 hover:border-muted focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-primary"
-                        ></textarea>
+                        <div class="relative">
+                            <i class="fa-regular fa-comment pointer-events-none absolute left-4 text-muted top-4" aria-hidden="true"></i>
+                            <textarea
+                                id="message"
+                                name="message"
+                                rows="5"
+                                required
+                                aria-describedby="messageError"
+                                aria-invalid="false"
+                                class="block min-h-[140px] resize-y w-full rounded-xl border border-muted/60 bg-white py-3 pl-11 pr-4 text-base text-primary transition-colors duration-200 hover:border-muted focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-primary"
+                            ></textarea>
+                        </div>
                         <p id="messageError" class="mt-1.5 hidden text-sm text-red-600">Повідомлення має містити щонайменше 10 символів.</p>
                     </div>
 
                     <!-- Згода з політикою конфіденційності -->
-                    <div class="md:col-span-2">
+                    <div class="rounded-xl bg-secondary p-4 md:col-span-2">
                         <div class="flex items-start gap-3">
                             <input
                                 type="checkbox"
@@ -228,12 +248,64 @@
                     <div class="md:col-span-2">
                         <button
                             type="submit"
-                            class="inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:w-auto sm:min-w-[200px]"
+                            class="group inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-medium text-white shadow-md shadow-primary/20 transition-all duration-200 hover:bg-primary-hover hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:w-auto sm:min-w-[220px]"
                         >
                             Надіслати
+                            <i class="fa-solid fa-paper-plane text-xs transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true"></i>
                         </button>
                     </div>
                 </form>
+
+                <!-- БОКОВА ПАНЕЛЬ: теми звернень і соцмережі -->
+                <aside class="rounded-2xl bg-primary p-6 text-white sm:p-8" aria-labelledby="aside-title">
+                    <h2 id="aside-title" class="mb-6 text-lg font-semibold">Про що можна написати</h2>
+
+                    <ul class="space-y-5">
+                        <li class="flex gap-4">
+                            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10" aria-hidden="true">
+                                <i class="fa-solid fa-route"></i>
+                            </span>
+                            <div>
+                                <p class="text-sm font-semibold">Питання про маршрути</p>
+                                <p class="mt-1 text-[13px] text-text-light">Напрямки, тривалість поїздки та робота AI-планувальника.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10" aria-hidden="true">
+                                <i class="fa-solid fa-city"></i>
+                            </span>
+                            <div>
+                                <p class="text-sm font-semibold">Поради щодо міст</p>
+                                <p class="mt-1 text-[13px] text-text-light">Що побачити, де зупинитися та як пересуватися Європою.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10" aria-hidden="true">
+                                <i class="fa-regular fa-comment-dots"></i>
+                            </span>
+                            <div>
+                                <p class="text-sm font-semibold">Відгуки та пропозиції</p>
+                                <p class="mt-1 text-[13px] text-text-light">Ваші ідеї допомагають зробити Via Europe кращим.</p>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="mt-8 border-t border-white/10 pt-6">
+                        <p class="mb-3 text-sm font-semibold">Ми в соцмережах</p>
+                        <div class="flex gap-3">
+                            <a href="https://www.instagram.com/" aria-label="Instagram" target="_blank" rel="noopener noreferrer" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-text-light transition-colors hover:border-white/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                                <i class="fa-brands fa-instagram text-[1.1rem]" aria-hidden="true"></i>
+                            </a>
+                            <a href="https://www.facebook.com/" aria-label="Facebook" target="_blank" rel="noopener noreferrer" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-text-light transition-colors hover:border-white/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                                <i class="fa-brands fa-facebook-f text-[1.1rem]" aria-hidden="true"></i>
+                            </a>
+                            <a href="https://www.youtube.com/" aria-label="YouTube" target="_blank" rel="noopener noreferrer" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-text-light transition-colors hover:border-white/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                                <i class="fa-brands fa-youtube text-[1.1rem]" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </aside>
+
             </div>
         </section>
 
