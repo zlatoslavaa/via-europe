@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>7 днів в Італії — Via Europe</title>
+    <meta name="description" content="Готовий маршрут: 7 днів в Італії — карта, план по днях, бюджет і практична інформація.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#17243A',
+                        'primary-hover': '#0f1a2b',
+                        muted: '#5A6570',
+                        'text-light': '#C7CBD2',
+                        secondary: '#F5F5F5',
+                        border: '#E5E5E5',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        heading: ['Archivo Black', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="m-0 bg-white font-sans leading-relaxed text-primary">
+
+    <!-- ========== HEADER ========== -->
+    <header class="sticky top-0 z-50 flex items-center justify-between gap-6 border-b border-[#E5E5E5] bg-white px-[7%] py-4">
+        <a
+            class="shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+            href="index.html#home"
+            aria-label="Via Europe — на головну"
+        >
+            <img src="assets/icons/logo.svg" alt="Via Europe" class="block h-auto w-[140px] object-contain">
+        </a>
+
+        <nav class="hidden flex-nowrap items-center gap-7 md:flex" aria-label="Основна навігація">
+            <a href="index.html#home" class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Головна</a>
+            <a href="countries.html" class="whitespace-nowrap rounded-sm text-sm font-semibold text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Країни</a>
+            <a href="countries.html" class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Міста</a>
+            <a href="planner.html" class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Планер</a>
+            <a href="account.html" class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Мій профіль</a>
+        </nav>
+
+        <a
+            href="planner.html"
+            class="hidden shrink-0 items-center justify-center whitespace-nowrap rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary md:inline-flex"
+        >
+            Створити маршрут
+        </a>
+
+        <button
+            id="menu-btn"
+            type="button"
+            class="flex h-11 w-11 flex-col items-center justify-center gap-[5px] rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:hidden"
+            aria-label="Відкрити меню"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+        >
+            <span class="block h-0.5 w-6 origin-center bg-primary transition-all duration-300"></span>
+            <span class="block h-0.5 w-6 bg-primary transition-all duration-300"></span>
+            <span class="block h-0.5 w-6 origin-center bg-primary transition-all duration-300"></span>
+        </button>
+    </header>
+
+    <!-- Mobile menu -->
+    <div
+        id="mobile-menu"
+        class="fixed inset-x-0 bottom-0 top-[68px] z-40 hidden flex-col gap-6 overflow-y-auto bg-white px-[7%] py-8 shadow-lg md:hidden"
+        inert
+    >
+        <nav class="flex flex-col gap-1" aria-label="Мобільна навігація">
+            <a href="index.html#home" class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary">Головна</a>
+            <a href="countries.html" class="mobile-link rounded-sm border-b border-border py-3 text-base font-semibold text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary">Країни</a>
+            <a href="countries.html" class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary">Міста</a>
+            <a href="planner.html" class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary">Планер</a>
+            <a href="account.html" class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary">Мій профіль</a>
+        </nav>
+
+        <a
+            href="planner.html"
+            class="mobile-link mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-lg bg-primary px-5 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        >
+            Створити маршрут
+        </a>
+    </div>
+
+    <main>
+        <!-- ========== ITINERARY INTRO ========== -->
+        <section class="bg-white px-[7%] pb-[72px] pt-8 sm:pt-10" id="trip" aria-labelledby="trip-title">
+            <nav class="mb-6" aria-label="Хлібні крихти">
+                <ol class="m-0 flex list-none flex-wrap items-center gap-2 p-0 text-xs text-muted sm:text-[13px]">
+                    <li><a href="planner.html" class="rounded-sm transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Планувальник</a></li>
+                    <li aria-hidden="true"><i class="fa-solid fa-chevron-right text-[9px]"></i></li>
+                    <li aria-current="page" class="font-semibold text-primary">Маршрут</li>
+                </ol>
+            </nav>
+            <header class="mb-8 max-w-[640px]">
+                <p class="mb-3 inline-block text-[11px] font-bold uppercase tracking-[1.5px] text-muted">ТВІЙ МАРШРУТ</p>
+                <h1 id="trip-title" class="mb-3 font-heading text-[28px] font-bold leading-tight text-primary sm:text-[32px]">
+                    7 днів в Італії
+                </h1>
+                <p class="m-0 text-sm leading-relaxed text-muted sm:text-base">
+                    Збалансований маршрут Римом, Флоренцією та Венецією: головні пам’ятки, час на неспішні вечори й зручні переїзди потягом.
+                </p>
+            </header>
+            <div class="mx-auto grid max-w-[1500px] grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
+                <div class="rounded-xl border border-border bg-white p-3.5 sm:p-[18px]">
+                    <p class="mb-1 mt-0 text-[10px] font-semibold uppercase tracking-[1.5px] text-muted">Тривалість</p>
+                    <p class="m-0 font-heading text-sm font-bold sm:text-base">7 днів</p>
+                </div>
+                <div class="rounded-xl border border-border bg-white p-3.5 sm:p-[18px]">
+                    <p class="mb-1 mt-0 text-[10px] font-semibold uppercase tracking-[1.5px] text-muted">Міст</p>
+                    <p class="m-0 font-heading text-sm font-bold sm:text-base">3</p>
+                </div>
+                <div class="rounded-xl border border-border bg-white p-3.5 sm:p-[18px]">
+                    <p class="mb-1 mt-0 text-[10px] font-semibold uppercase tracking-[1.5px] text-muted">Бюджет</p>
+                    <p class="m-0 font-heading text-sm font-bold sm:text-base">≈ 1 140 €</p>
+                </div>
+                <div class="rounded-xl border border-border bg-white p-3.5 sm:p-[18px]">
+                    <p class="mb-1 mt-0 text-[10px] font-semibold uppercase tracking-[1.5px] text-muted">Темп</p>
+                    <p class="m-0 font-heading text-sm font-bold sm:text-base">Збалансований</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-secondary px-[7%] py-[72px]" id="route-map" aria-labelledby="route-map-title">
+            <header class="mb-10 max-w-[640px]">
+                <p class="mb-3 inline-block text-[11px] font-bold uppercase tracking-[1.5px] text-muted">ТВІЙ МАРШРУТ</p>
+                <h2 id="route-map-title" class="mb-3 font-heading text-[28px] font-bold leading-tight text-primary sm:text-[32px]">
+                    Карта маршруту
+                </h2>
+                <p class="m-0 text-sm leading-relaxed text-muted sm:text-base">
+                    Три міста, між якими зручно їхати потягом: від півдня до півночі країни.
+                </p>
+            </header>
+
+            <div class="mx-auto max-w-[1500px]">
+                <iframe title="Карта маршруту Італією" class="block h-[320px] w-full rounded-xl border border-border bg-white sm:h-[420px]" src="https://www.openstreetmap.org/export/embed.html?bbox=10.0000%2C41.5000%2C14.0000%2C45.9000&amp;layer=mapnik" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <p class="mb-4 mt-3 text-xs text-muted sm:text-[13px]">© учасники OpenStreetMap</p>
+                <ol class="m-0 grid list-none grid-cols-1 gap-3 p-0 sm:grid-cols-3 sm:gap-5">
+                    <li class="flex items-center gap-3 rounded-xl border border-border bg-white p-3.5">
+                        <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-white">1</span>
+                        <span><span class="block text-sm font-semibold">Рим</span><span class="block text-xs text-muted">Дні 1–2</span></span>
+                    </li>
+                    <li class="flex items-center gap-3 rounded-xl border border-border bg-white p-3.5">
+                        <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-white">2</span>
+                        <span><span class="block text-sm font-semibold">Флоренція</span><span class="block text-xs text-muted">Дні 3–4</span></span>
+                    </li>
+                    <li class="flex items-center gap-3 rounded-xl border border-border bg-white p-3.5">
+                        <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-white">3</span>
+                        <span><span class="block text-sm font-semibold">Венеція</span><span class="block text-xs text-muted">Дні 5–7</span></span>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="bg-white px-[7%] py-[72px]" id="plan" aria-labelledby="plan-title">
+            <header class="mb-10 max-w-[640px]">
+                <p class="mb-3 inline-block text-[11px] font-bold uppercase tracking-[1.5px] text-muted">ТВІЙ МАРШРУТ</p>
+                <h2 id="plan-title" class="mb-3 font-heading text-[28px] font-bold leading-tight text-primary sm:text-[32px]">
+                    План подорожі по днях
+                </h2>
+                <p class="m-0 text-sm leading-relaxed text-muted sm:text-base">
+                    Кожен день — дві головні зупинки й запас часу на каву, прогулянки та несподівані знахідки.
+                </p>
+            </header>
+
+            <div class="mx-auto flex max-w-[1500px] flex-col gap-4">
+                <article class="rounded-xl border border-border bg-white p-4 sm:p-5">
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:items-center">
+                        <div>
+                            <p class="mb-1 mt-0 text-[10px] font-semibold uppercase tracking-[1.5px] text-muted">ДЕНЬ 1</p>
+                            <h3 class="mb-1 mt-0 font-heading text-base font-bold sm:text-[17px]">Рим</h3>
+                            <p class="m-0 text-[13px] leading-snug text-muted">Знайомство з античним центром міста.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                        <div class="overflow-hidden rounded-lg border border-border bg-white">
+                            <img class="h-[110px] w-full bg-secondary object-cover sm:h-[150px]" src="assets/images/rome_colosseum.jpg" alt="Колізей" loading="lazy" decoding="async">
+                            <div class="p-2.5 sm:p-3">
+                                <span class="mb-1.5 inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">09:00</span>
+                                <h4 class="m-0 font-heading text-xs font-bold sm:text-sm">Колізей</h4>
+                            </div>
+                        </div>
+                        <div class="overflow-hidden rounded-lg border border-border bg-white">
+                            <img class="h-[110px] w-full bg-secondary object-cover sm:h-[150px]" src="assets/images/rome_forum.jpg" alt="Римський форум" loading="lazy" decoding="async">
+                            <div class="p-2.5 sm:p-3">
+                                <span class="mb-1.5 inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">13:00</span>
+                                <h4 class="m-0 font-heading text-xs font-bold sm:text-sm">Римський форум</h4>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="rounded-xl border border-border bg-white p-4 sm:p-5">
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:items-center">
+                        <div>
+                            <p class="mb-1 mt-0 text-[10px] font-semibold uppercase tracking-[1.5px] text-muted">ДЕНЬ 2</p>
+                            <h3 class="mb-1 mt-0 font-heading text-base font-bold sm:text-[17px]">Рим</h3>
+                            <p class="m-0 text-[13px] leading-snug text-muted">Ватикан і барокові площі.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                        <div class="overflow-hidden rounded-lg border border-border bg-white">
+                            <img class="h-[110px] w-full bg-secondary object-cover sm:h-[150px]" src="assets/images/rome_vatican.jpg" alt="Музеї Ватикану" loading="lazy" decoding="async">
+                            <div class="p-2.5 sm:p-3">
+                                <span class="mb-1.5 inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">09:00</span>
+                                <h4 class="m-0 font-heading text-xs font-bold sm:text-sm">Музеї Ватикану</h4>
+                            </div>
+                        </div>
+                        <div class="overflow-hidden rounded-lg border border-border bg-white">
+                            <img class="h-[110px] w-full bg-secondary object-cover sm:h-[150px]" src="assets/images/rome_navona.jpg" alt="Площа Навона" loading="lazy" decoding="async">
+                            <div class="p-2.5 sm:p-3">
+                                <span class="mb-1.5 inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">17:00</span>
+                                <h4 class="m-0 font-heading text-xs font-bold sm:text-sm">Площа Навона</h4>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="rounded-xl border border-border bg-white p-4 sm:p-5">
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:items-center">
+                        <div>
+                            <p class="mb-1 mt-0 text-[10px] font-semibold uppercase tracking-[1.5px] text-muted">ДЕНЬ 3</p>
+                            <h3 class="mb-1 mt-0 font-heading text-base font-bold sm:text-[17px]">Флоренція</h3>
+                            <p class="m-0 text-[13px] leading-snug text-muted">Дорога потягом і перша прогулянка містом.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                        <div class="overflow-hidden rounded-lg border border-border bg-white">
+                            <img class="h-[110px] w-full bg-secondary object-cover sm:h-[150px]" src="assets/images/florence_sight1.jpg" alt="Собор і дзвіниця" loading="lazy" decoding="async">
+                            <div class="p-2.5 sm:p-3">
+                                <span class="mb-1.5 inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">11:00</span>
+                                <h4 class="m-0 font-heading text-xs font-bold sm:text-sm">Собор і дзвіниця</h4>
+                            </div>
+                        </div>
+                        <div class="overflow-hidden rounded-lg border border-border bg-white">
+                            <img class="h-[110px] w-full bg-secondary object-cover sm:h-[150px]" src="assets/images/florence_sight2.jpg" alt="Галерея Уффіці" loading="lazy" decoding="async">
+                            <div class="p-2.5 sm:p-3">
+                                <span class="mb-1.5 inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">15:00</span>
+                                <h4 class="m-0 font-heading text-xs font-bold sm:text-sm">Галерея Уффіці</h4>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="rounded-xl border border-border bg-white p-4 sm:p-5">
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:items-center">
+                        <div>
+                            <p class="mb-1 mt-0 text-[10px] font-semibold uppercase tracking-[1.5px] text-muted">ДЕНЬ 4</p>
+                            <h3 class="mb-1 mt-0 font-heading text-base font-bold sm:text-[17px]">Флоренція</h3>
+                            <p class="m-0 text-[13px] leading-snug text-muted">Панорами й міст над Арно.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                        <div class="overflow-hidden rounded-lg border border-border bg-white">
+                            <img class="h-[110px] w-full bg-secondary object-cover sm:h-[150px]" src="assets/images/florence_sight4.jpg" alt="Площа Мікеланджело" loading="lazy" decoding="async">
+                            <div class="p-2.5 sm:p-3">
+                                <span class="mb-1.5 inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">10:00</span>
+                                <h4 class="m-0 font-heading text-xs font-bold sm:text-sm">Площа Мікеланджело</h4>
+                            </div>
+                        </div>
+                        <div class="overflow-hidden rounded-lg border border-border bg-white">
+                            <img class="h-[110px] w-full bg-secondary object-cover sm:h-[150px]" src="assets/images/florence_sight3.jpg" alt="Понте-Веккіо" loading="lazy" decoding="async">
+                            <div class="p-2.5 sm:p-3">
+                                <span class="mb-1.5 inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">16:00</span>
+                                <h4 class="m-0 font-heading text-xs font-bold sm:text-sm">Понте-Веккіо</h4>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="rounded-xl border border-border bg-white p-4 sm:p-5">
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:items-center">
+                        <div>
+                            <p class="mb-1 mt-0 text-[10px] font-semibold uppercase tracking-[1.5px] text-muted">ДЕНЬ 5</p>
+                            <h3 class="mb-1 mt-0 font-heading text-base font-bold sm:text-[17px]">Венеція</h3>
+                            <p class="m-0 text-[13px] leading-snug text-muted">Переїзд і вечір на головній площі.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                        <div class="overflow-hidden rounded-lg border border-border bg-white">
+                            <img class="h-[110px] w-full bg-secondary object-cover sm:h-[150px]" src="assets/images/venice_sight1.jpg" alt="Площа Сан-Марко" loading="lazy" decoding="async">
+                            <div class="p-2.5 sm:p-3">
+                                <span class="mb-1.5 inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">14:00</span>
+                                <h4 class="m-0 font-heading text-xs font-bold sm:text-sm">Площа Сан-Марко</h4>
+                            </div>
+                        </div>
+                        <div class="overflow-hidden rounded-lg border border-border bg-white">
+                            <img class="h-[110px] w-full bg-secondary object-cover sm:h-[150px]" src="assets/images/venice_sight2.jpg" alt="Палац дожів" loading="lazy" decoding="async">
+                            <div class="p-2.5 sm:p-3">
+                                <span class="mb-1.5 inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">16:00</span>
+                                <h4 class="m-0 font-heading text-xs font-bold sm:text-sm">Палац дожів</h4>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="rounded-xl border border-border bg-white p-4 sm:p-5">
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:items-center">
+                        <div>
+                            <p class="mb-1 mt-0 text-[10px] font-semibold uppercase tracking-[1.5px] text-muted">ДЕНЬ 6</p>
+                            <h3 class="mb-1 mt-0 font-heading text-base font-bold sm:text-[17px]">Венеція</h3>
+                            <p class="m-0 text-[13px] leading-snug text-muted">Острови лагуни й ринок.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                        <div class="overflow-hidden rounded-lg border border-border bg-white">
+                            <img class="h-[110px] w-full bg-secondary object-cover sm:h-[150px]" src="assets/images/venice_sight5.jpg" alt="Острів Бурано" loading="lazy" decoding="async">
+                            <div class="p-2.5 sm:p-3">
+                                <span class="mb-1.5 inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">10:00</span>
+                                <h4 class="m-0 font-heading text-xs font-bold sm:text-sm">Острів Бурано</h4>
+                            </div>
+                        </div>
+                        <div class="overflow-hidden rounded-lg border border-border bg-white">
+                            <img class="h-[110px] w-full bg-secondary object-cover sm:h-[150px]" src="assets/images/venice_sight3.jpg" alt="Міст Ріальто" loading="lazy" decoding="async">
+                            <div class="p-2.5 sm:p-3">
+                                <span class="mb-1.5 inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">16:00</span>
+                                <h4 class="m-0 font-heading text-xs font-bold sm:text-sm">Міст Ріальто</h4>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="rounded-xl border border-border bg-white p-4 sm:p-5">
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:items-center">
+                        <div>
+                            <p class="mb-1 mt-0 text-[10px] font-semibold uppercase tracking-[1.5px] text-muted">ДЕНЬ 7</p>
+                            <h3 class="mb-1 mt-0 font-heading text-base font-bold sm:text-[17px]">Венеція</h3>
+                            <p class="m-0 text-[13px] leading-snug text-muted">Тихий день без поспіху.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                        <div class="overflow-hidden rounded-lg border border-border bg-white">
+                            <img class="h-[110px] w-full bg-secondary object-cover sm:h-[150px]" src="assets/images/venice_tip2.jpg" alt="Дорсодуро" loading="lazy" decoding="async">
+                            <div class="p-2.5 sm:p-3">
+                                <span class="mb-1.5 inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">10:00</span>
+                                <h4 class="m-0 font-heading text-xs font-bold sm:text-sm">Дорсодуро</h4>
+                            </div>
+                        </div>
+                        <div class="overflow-hidden rounded-lg border border-border bg-white">
+                            <img class="h-[110px] w-full bg-secondary object-cover sm:h-[150px]" src="assets/images/venice_sight4.jpg" alt="Гранд-канал на заході" loading="lazy" decoding="async">
+                            <div class="p-2.5 sm:p-3">
+                                <span class="mb-1.5 inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">18:00</span>
+                                <h4 class="m-0 font-heading text-xs font-bold sm:text-sm">Гранд-канал на заході</h4>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ========== BUDGET + INFO ========== -->
+        <section class="bg-secondary px-[7%] py-[72px]" id="details" aria-labelledby="budget-title">
+            <div class="mx-auto grid max-w-[1500px] grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2">
+                <article class="rounded-xl border border-border bg-white p-5 sm:p-7">
+                    <h2 id="budget-title" class="mb-3 mt-0 font-heading text-base font-bold sm:text-[17px]">Бюджет подорожі</h2>
+                    <p class="mb-2 mt-0 text-xs text-muted">Орієнтовна сума на одну людину.</p>
+                    <dl class="m-0">
+                        <div class="flex justify-between gap-4 border-b border-border py-2.5 text-[13px]"><dt class="text-muted">Дорога</dt><dd class="m-0 font-semibold">280 €</dd></div>
+                        <div class="flex justify-between gap-4 border-b border-border py-2.5 text-[13px]"><dt class="text-muted">Житло</dt><dd class="m-0 font-semibold">420 €</dd></div>
+                        <div class="flex justify-between gap-4 border-b border-border py-2.5 text-[13px]"><dt class="text-muted">Їжа</dt><dd class="m-0 font-semibold">260 €</dd></div>
+                        <div class="flex justify-between gap-4 border-b border-border py-2.5 text-[13px]"><dt class="text-muted">Враження</dt><dd class="m-0 font-semibold">180 €</dd></div>
+                        <div class="mt-3 flex justify-between gap-4 rounded-lg bg-primary px-4 py-3 text-[13px] text-white"><dt class="font-semibold">Разом</dt><dd class="m-0 font-semibold">≈ 1 140 €</dd></div>
+                    </dl>
+                </article>
+                <article class="rounded-xl border border-border bg-white p-5 sm:p-7">
+                    <h2 class="mb-3 mt-0 font-heading text-base font-bold sm:text-[17px]">Практична інформація</h2>
+                    <ul class="m-0 flex list-none flex-col gap-3.5 p-0">
+                        <li class="flex items-start gap-3 text-[13px] leading-snug text-muted"><i class="fa-solid fa-calendar-days mt-0.5 w-4 text-[13px] text-primary" aria-hidden="true"></i>Найкращий час: квітень–червень і вересень–жовтень.</li>
+                        <li class="flex items-start gap-3 text-[13px] leading-snug text-muted"><i class="fa-solid fa-train mt-0.5 w-4 text-[13px] text-primary" aria-hidden="true"></i>Квитки на потяги між містами бронюй наперед.</li>
+                        <li class="flex items-start gap-3 text-[13px] leading-snug text-muted"><i class="fa-solid fa-ticket mt-0.5 w-4 text-[13px] text-primary" aria-hidden="true"></i>Музеї й пам’ятки краще бронювати онлайн.</li>
+                        <li class="flex items-start gap-3 text-[13px] leading-snug text-muted"><i class="fa-solid fa-passport mt-0.5 w-4 text-[13px] text-primary" aria-hidden="true"></i>Перед поїздкою перевір актуальні вимоги до в’їзду.</li>
+                        <li class="flex items-start gap-3 text-[13px] leading-snug text-muted"><i class="fa-solid fa-credit-card mt-0.5 w-4 text-[13px] text-primary" aria-hidden="true"></i>Картки приймають майже скрізь, але мати трохи готівки корисно.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <!-- ========== CHANGE ========== -->
+        <section class="bg-white px-[7%] py-[72px]" id="change" aria-labelledby="change-title">
+            <div class="mx-auto flex max-w-[1500px] flex-col gap-5 rounded-xl border border-border bg-secondary p-5 sm:p-7 lg:flex-row lg:items-center lg:justify-between">
+                <div class="max-w-[560px]">
+                    <h2 id="change-title" class="mb-1.5 mt-0 font-heading text-base font-bold sm:text-[17px]">Хочеш змінити маршрут?</h2>
+                    <p class="m-0 text-[13px] leading-snug text-muted sm:text-sm">Онови параметри, додай нові побажання або збережи цей план у своєму кабінеті.</p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="planner.html" class="inline-flex items-center justify-center whitespace-nowrap rounded-lg border border-border bg-white px-5 py-2.5 text-sm font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Змінити параметри</a>
+                    <a href="account.html" class="inline-flex items-center justify-center whitespace-nowrap rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Зберегти в кабінеті</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="bg-primary px-[7%] pb-8 pt-12 text-white" id="about">
+        <div class="mb-10 flex flex-wrap justify-between gap-12">
+            <div class="max-w-[240px]">
+                <a href="index.html#home" aria-label="Via Europe — на головну" class="rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+                    <img src="assets/icons/logo2.svg" alt="Via Europe" class="block h-auto w-[140px] object-contain" loading="lazy" decoding="async">
+                </a>
+                <p class="mb-5 mt-3 text-sm text-text-light">Продумані подорожі Європою.</p>
+
+                <div class="flex gap-3">
+                    <a href="https://www.instagram.com/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"
+                       class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-text-light transition-colors hover:border-white/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                        <i class="fa-brands fa-instagram text-[1.1rem]" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.facebook.com/" aria-label="Facebook" target="_blank" rel="noopener noreferrer"
+                       class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-text-light transition-colors hover:border-white/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                        <i class="fa-brands fa-facebook-f text-[1.1rem]" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.youtube.com/" aria-label="YouTube" target="_blank" rel="noopener noreferrer"
+                       class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-text-light transition-colors hover:border-white/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                        <i class="fa-brands fa-youtube text-[1.1rem]" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+
+            <nav class="flex flex-wrap gap-10 sm:gap-16" aria-label="Посилання у футері">
+                <div>
+                    <h2 class="mb-3.5 text-[13px] font-semibold text-white">Подорожі</h2>
+                    <ul class="space-y-2.5">
+                        <li><a href="countries.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Напрямки</a></li>
+                        <li><a href="planner.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Планер</a></li>
+                        <li><a href="countries.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Міста</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2 class="mb-3.5 text-[13px] font-semibold text-white">Via Europe</h2>
+                    <ul class="space-y-2.5">
+                        <li><a href="#about" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Про нас</a></li>
+                        <li><a href="planner.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Планер</a></li>
+                        <li><a href="account.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Кабінет</a></li>
+                        <li><a href="#about" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Контакти</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2 class="mb-3.5 text-[13px] font-semibold text-white">Інформація</h2>
+                    <ul class="space-y-2.5">
+                        <li><a href="index.html#ideas" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Поради</a></li>
+                        <li><a href="#about" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Політика</a></li>
+                        <li><a href="#about" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Умови</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <p class="m-0 border-t border-white/10 pt-6 text-xs text-text-light">
+            © 2026 Via Europe. Усі права захищені.
+        </p>
+    </footer>
+
+    <!-- Mobile menu script (той самий, що на головній) -->
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const spans = menuBtn.querySelectorAll('span');
+
+        function closeMenu() {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex');
+            mobileMenu.inert = true;
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.setAttribute('aria-label', 'Відкрити меню');
+            spans[0].classList.remove('rotate-45', 'translate-y-[7px]');
+            spans[1].classList.remove('opacity-0');
+            spans[2].classList.remove('-rotate-45', '-translate-y-[7px]');
+        }
+
+        function openMenu() {
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('flex');
+            mobileMenu.inert = false;
+            menuBtn.setAttribute('aria-expanded', 'true');
+            menuBtn.setAttribute('aria-label', 'Закрити меню');
+            spans[0].classList.add('rotate-45', 'translate-y-[7px]');
+            spans[1].classList.add('opacity-0');
+            spans[2].classList.add('-rotate-45', '-translate-y-[7px]');
+        }
+
+        menuBtn.addEventListener('click', () => {
+            menuBtn.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu();
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', closeMenu));
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && menuBtn.getAttribute('aria-expanded') === 'true') {
+                closeMenu();
+                menuBtn.focus();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) closeMenu();
+        });
+    </script>
+
+    <!-- «Переглянути більше» / «Показати менше» -->
+    <script>
+        document.querySelectorAll('[data-extra]').forEach(card => {
+            card.dataset.hideClass = ['lg:hidden', 'max-lg:hidden', 'hidden'].find(c => card.classList.contains(c));
+        });
+
+        document.querySelectorAll('[data-more-button]').forEach(button => {
+            const section = button.closest('section');
+            const moreText = button.textContent.trim();
+            let expanded = false;
+
+            button.setAttribute('aria-expanded', 'false');
+
+            button.addEventListener('click', () => {
+                expanded = !expanded;
+
+                section.querySelectorAll('[data-extra]').forEach(card => {
+                    card.classList.toggle(card.dataset.hideClass, !expanded);
+                });
+
+                button.textContent = expanded ? 'Показати менше' : moreText;
+                button.setAttribute('aria-expanded', String(expanded));
+            });
+        });
+    </script>
+
+</body>
+</html>

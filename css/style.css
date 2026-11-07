@@ -1,0 +1,291 @@
+:root {
+    color-scheme: light;
+    --color-primary: #17243A;
+    --color-muted: #5A6570;
+    --color-secondary: #F5F5F5;
+    --color-border: #E5E5E5;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+.font-heading,
+h1,
+h2,
+h3 {
+    font-family: 'Raleway', sans-serif;
+}
+
+.skip-link {
+    position: absolute;
+    z-index: 100;
+    top: 0.75rem;
+    left: 0.75rem;
+    transform: translateY(-160%);
+    border-radius: 0.5rem;
+    background: #fff;
+    padding: 0.75rem 1rem;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+.hero {
+    background-color: var(--color-primary);
+    background-image: url("../assets/images/hero.jpg");
+    background-position: center 52%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.hero::before {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(90deg, rgba(23, 36, 58, 0.84) 0%, rgba(23, 36, 58, 0.57) 48%, rgba(23, 36, 58, 0.14) 100%);
+    content: "";
+}
+
+.nav-link {
+    border-radius: 0.125rem;
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 160ms ease;
+}
+
+.nav-link:hover,
+.footer-link:hover {
+    color: #9aa8bb;
+}
+
+.nav-link:focus-visible,
+.footer-link:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+}
+
+.section-eyebrow {
+    margin: 0 0 0.75rem;
+    color: var(--color-muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.section-title {
+    margin: 0;
+    color: var(--color-primary);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+.destination-card {
+    position: relative;
+    display: block;
+    aspect-ratio: 1.18 / 1;
+    overflow: hidden;
+    border-radius: 0.875rem;
+    background: var(--color-primary);
+    isolation: isolate;
+}
+
+.destination-card::after {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, transparent 38%, rgba(13, 25, 42, 0.72) 100%);
+    content: "";
+}
+
+.destination-card img,
+.city-card img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 450ms ease;
+}
+
+.destination-card:hover img,
+.city-card:hover img {
+    transform: scale(1.045);
+}
+
+.destination-card:focus-visible,
+.city-card:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 4px;
+}
+
+.destination-card__label {
+    position: absolute;
+    bottom: 1.1rem;
+    left: 1.1rem;
+    color: #fff;
+    font-family: 'Raleway', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.45rem);
+    font-weight: 700;
+}
+
+.destination-card__arrow {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 50%;
+    color: #fff;
+    transition: background-color 160ms ease, color 160ms ease;
+}
+
+.destination-card:hover .destination-card__arrow {
+    background: #fff;
+    color: var(--color-primary);
+}
+
+.city-card {
+    position: relative;
+    display: block;
+    min-height: 360px;
+    overflow: hidden;
+    border-radius: 0.875rem;
+    background: var(--color-primary);
+    isolation: isolate;
+}
+
+.city-card::after {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, transparent 35%, rgba(13, 25, 42, 0.78) 100%);
+    content: "";
+}
+
+.city-card__caption {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    left: 1.25rem;
+}
+
+section .mx-auto.grid:has(> article),
+section .mx-auto.grid:has(> a > article) {
+    grid-auto-rows: minmax(0, 1fr);
+}
+
+section .mx-auto.grid > article,
+section .mx-auto.grid > a:has(> article) {
+    height: 100%;
+}
+
+section .mx-auto.grid > a:has(> article) {
+    display: flex;
+}
+
+section .mx-auto.grid > a > article {
+    flex: 1;
+    min-width: 0;
+}
+
+section .mx-auto.grid > article > img,
+section .mx-auto.grid > a > article > img {
+    height: 160px;
+}
+
+@media (min-width: 640px) {
+    section .mx-auto.grid > article > img,
+    section .mx-auto.grid > a > article > img {
+        height: 250px;
+    }
+}
+
+.footer-link {
+    border-radius: 0.125rem;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.875rem;
+    transition: color 160ms ease;
+}
+
+section:has([data-more-button]) .mx-auto.grid > :nth-child(n + 4) {
+    display: none;
+}
+
+section:has([data-more-button][aria-expanded="true"]) .mx-auto.grid > * {
+    display: block !important;
+}
+
+section:has([data-more-button]) .mx-auto.grid:not(:has(> :nth-child(3))) + div {
+    display: none !important;
+}
+
+@media (max-width: 639px) {
+    #countries .mx-auto.grid:has(> a > article),
+    body:has(#profile) .mx-auto.grid:has(> a > article) {
+        grid-auto-rows: 320px;
+    }
+
+    section:has([data-more-button]) .mx-auto.grid > :nth-child(n + 3) {
+        display: none;
+    }
+
+    section[aria-labelledby="countries-title"]:has([data-more-button]) .mx-auto.grid > :nth-child(n + 5),
+    section[aria-labelledby="destinations-title"]:has([data-more-button]) .mx-auto.grid > :nth-child(n + 5),
+    section[aria-labelledby="cities-title"]:has([data-more-button]) .mx-auto.grid > :nth-child(n + 5) {
+        display: none;
+    }
+
+    section[data-mobile-card-limit="2"]:has([data-more-button]) .mx-auto.grid > :nth-child(n + 3) {
+        display: none;
+    }
+}
+
+@media (min-width: 1024px) {
+    section:has([data-more-button]) .mx-auto.grid:has(> :nth-child(4)) + div:has([data-more-button]) {
+        display: flex !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero {
+        background-position: 58% center;
+    }
+
+    .hero::before {
+        background: linear-gradient(90deg, rgba(23, 36, 58, 0.82), rgba(23, 36, 58, 0.42));
+    }
+
+    .city-card {
+        min-height: 300px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+    }
+}
