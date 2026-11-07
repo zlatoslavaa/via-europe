@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-Версія з гілки main
-=======
-Версія з гілки conflict-branch
->>>>>>> conflict-branch
