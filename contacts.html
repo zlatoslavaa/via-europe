@@ -127,92 +127,114 @@
     <!-- Основний вміст сторінки -->
     <main>
 
-        <!-- ЕТАП 3: семантична структура форми зворотного зв'язку (без стилів і без JavaScript) -->
-        <section id="contact" aria-labelledby="contact-title">
-            <h1 id="contact-title">Зв'яжіться з нами</h1>
-            <p>Маєте запитання про подорожі Європою або хочете залишити відгук? Заповніть форму, і ми будемо раді почути вас.</p>
+        <!-- СЕКЦІЯ ЗВОРОТНОГО ЗВ'ЯЗКУ: адаптивна форма (Tailwind CSS, mobile-first) -->
+        <section class="bg-secondary px-[7%] py-12 sm:py-[72px]" id="contact" aria-labelledby="contact-title">
+            <div class="mx-auto max-w-[720px]">
 
-            <!-- novalidate вимикає стандартні підказки браузера, щоб далі працювала наша JS-валідація -->
-            <form id="feedbackForm" action="#" method="post" novalidate>
+                <!-- Заголовок і вступ -->
+                <header class="mb-8">
+                    <h1 id="contact-title" class="mb-3 font-heading text-[28px] font-bold leading-tight text-primary sm:text-[32px]">Зв'яжіться з нами</h1>
+                    <p class="mb-2 text-muted">Маєте запитання про подорожі Європою або хочете залишити відгук? Заповніть форму, і ми будемо раді почути вас.</p>
+                    <p class="text-sm text-muted">Усі поля обов'язкові для заповнення.</p>
+                </header>
 
-                <!-- Ім'я -->
-                <div>
-                    <label for="username">Ім'я</label>
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        autocomplete="name"
-                        required
-                        aria-describedby="usernameError"
-                        aria-invalid="false"
-                    >
-                    <p id="usernameError" class="hidden">Введіть ім'я (мінімум 2 символи).</p>
-                </div>
+                <!-- novalidate вимикає стандартні підказки браузера, щоб далі працювала наша JS-валідація -->
+                <form id="feedbackForm" action="#" method="post" novalidate
+                      class="grid grid-cols-1 gap-5 rounded-xl border border-border bg-white p-5 sm:p-8 md:grid-cols-2 md:gap-6">
 
-                <!-- Email -->
-                <div>
-                    <label for="email">Електронна пошта</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        autocomplete="email"
-                        required
-                        aria-describedby="emailError"
-                        aria-invalid="false"
-                    >
-                    <p id="emailError" class="hidden">Введіть коректну електронну адресу.</p>
-                </div>
+                    <!-- Ім'я (на всю ширину) -->
+                    <div class="md:col-span-2">
+                        <label for="username" class="mb-1.5 block text-sm font-medium text-primary">Ім'я</label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            autocomplete="name"
+                            required
+                            aria-describedby="usernameError"
+                            aria-invalid="false"
+                            class="block min-h-12 w-full rounded-lg border border-muted/60 bg-white px-4 py-3 text-base text-primary transition-colors duration-200 hover:border-muted focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-primary"
+                        >
+                        <p id="usernameError" class="mt-1.5 hidden text-sm text-red-600">Введіть ім'я (мінімум 2 символи).</p>
+                    </div>
 
-                <!-- Телефон -->
-                <div>
-                    <label for="phone">Номер телефону</label>
-                    <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        inputmode="tel"
-                        autocomplete="tel"
-                        required
-                        aria-describedby="phoneHint phoneError"
-                        aria-invalid="false"
-                    >
-                    <p id="phoneHint">Формат: +380XXXXXXXXX (без пробілів і дужок).</p>
-                    <p id="phoneError" class="hidden">Введіть номер у форматі +380XXXXXXXXX.</p>
-                </div>
+                    <!-- Email (від md — у парі з телефоном) -->
+                    <div>
+                        <label for="email" class="mb-1.5 block text-sm font-medium text-primary">Електронна пошта</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            autocomplete="email"
+                            required
+                            aria-describedby="emailError"
+                            aria-invalid="false"
+                            class="block min-h-12 w-full rounded-lg border border-muted/60 bg-white px-4 py-3 text-base text-primary transition-colors duration-200 hover:border-muted focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-primary"
+                        >
+                        <p id="emailError" class="mt-1.5 hidden text-sm text-red-600">Введіть коректну електронну адресу.</p>
+                    </div>
 
-                <!-- Повідомлення -->
-                <div>
-                    <label for="message">Повідомлення</label>
-                    <textarea
-                        id="message"
-                        name="message"
-                        rows="5"
-                        required
-                        aria-describedby="messageError"
-                        aria-invalid="false"
-                    ></textarea>
-                    <p id="messageError" class="hidden">Повідомлення має містити щонайменше 10 символів.</p>
-                </div>
+                    <!-- Телефон -->
+                    <div>
+                        <label for="phone" class="mb-1.5 block text-sm font-medium text-primary">Номер телефону</label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            inputmode="tel"
+                            autocomplete="tel"
+                            required
+                            aria-describedby="phoneHint phoneError"
+                            aria-invalid="false"
+                            class="block min-h-12 w-full rounded-lg border border-muted/60 bg-white px-4 py-3 text-base text-primary transition-colors duration-200 hover:border-muted focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-primary"
+                        >
+                        <p id="phoneHint" class="mt-1.5 text-sm text-muted">Формат: +380XXXXXXXXX (без пробілів і дужок).</p>
+                        <p id="phoneError" class="mt-1.5 hidden text-sm text-red-600">Введіть номер у форматі +380XXXXXXXXX.</p>
+                    </div>
 
-                <!-- Згода з політикою конфіденційності -->
-                <div>
-                    <input
-                        type="checkbox"
-                        id="agreement"
-                        name="agreement"
-                        required
-                        aria-describedby="agreementError"
-                        aria-invalid="false"
-                    >
-                    <label for="agreement">Я погоджуюсь з політикою конфіденційності</label>
-                    <p id="agreementError" class="hidden">Потрібна згода з політикою конфіденційності.</p>
-                </div>
+                    <!-- Повідомлення (на всю ширину) -->
+                    <div class="md:col-span-2">
+                        <label for="message" class="mb-1.5 block text-sm font-medium text-primary">Повідомлення</label>
+                        <textarea
+                            id="message"
+                            name="message"
+                            rows="5"
+                            required
+                            aria-describedby="messageError"
+                            aria-invalid="false"
+                            class="block min-h-[140px] w-full resize-y rounded-lg border border-muted/60 bg-white px-4 py-3 text-base text-primary transition-colors duration-200 hover:border-muted focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-primary"
+                        ></textarea>
+                        <p id="messageError" class="mt-1.5 hidden text-sm text-red-600">Повідомлення має містити щонайменше 10 символів.</p>
+                    </div>
 
-                <!-- Кнопка надсилання -->
-                <button type="submit">Надіслати</button>
-            </form>
+                    <!-- Згода з політикою конфіденційності -->
+                    <div class="md:col-span-2">
+                        <div class="flex items-start gap-3">
+                            <input
+                                type="checkbox"
+                                id="agreement"
+                                name="agreement"
+                                required
+                                aria-describedby="agreementError"
+                                aria-invalid="false"
+                                class="mt-0.5 h-5 w-5 shrink-0 cursor-pointer rounded accent-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                            >
+                            <label for="agreement" class="cursor-pointer text-sm text-primary">Я погоджуюсь з політикою конфіденційності</label>
+                        </div>
+                        <p id="agreementError" class="mt-1.5 hidden text-sm text-red-600">Потрібна згода з політикою конфіденційності.</p>
+                    </div>
+
+                    <!-- Кнопка надсилання: на мобільному на всю ширину -->
+                    <div class="md:col-span-2">
+                        <button
+                            type="submit"
+                            class="inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:w-auto sm:min-w-[200px]"
+                        >
+                            Надіслати
+                        </button>
+                    </div>
+                </form>
+            </div>
         </section>
 
     </main>
@@ -260,7 +282,6 @@
                     <ul class="space-y-2.5">
                         <li><a href="index.html#about" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Про нас</a></li>
                         <li><a href="planner.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Планер</a></li>
-                        <li><a href="account.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Кабінет</a></li>
                         <li><a href="contacts.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Контакти</a></li>
                     </ul>
                 </div>
