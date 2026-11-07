@@ -67,6 +67,8 @@ const phoneError = document.getElementById('phoneError');
 const messageError = document.getElementById('messageError');
 const agreementError = document.getElementById('agreementError');
 
+const phoneHint = document.getElementById('phoneHint');
+
 /* =========================================================
    4. Функції керування станами інтерфейсу
    ========================================================= */
@@ -111,82 +113,162 @@ function clearError(input, errorElement) {
 }
 
 /* =========================================================
-   5. Функції валідації (кожна повертає true або false)
+   5. Правила (чисті перевірки без зміни інтерфейсу)
    ========================================================= */
+
+const isNameValid = () => nameInput.value.trim().length >= MIN_NAME_LENGTH;
+const isEmailValid = () => REGEX_EMAIL.test(emailInput.value);
+const isPhoneValid = () => REGEX_PHONE.test(phoneInput.value);
+const isMessageValid = () => messageInput.value.trim().length >= MIN_MESSAGE_LENGTH;
+const isAgreementValid = () => agreementInput.checked;
+
+/* =========================================================
+   5.1. UX-функція: автоперетворення телефону 0XXXXXXXXX -> +380XXXXXXXXX
+   Це НЕ правило валідації (REGEX_PHONE лишається суворим), а зручність для користувача.
+   ========================================================= */
+
+// Рівно 10 цифр, що починаються з 0 (український національний формат, напр. 0501234567)
+const REGEX_PHONE_LOCAL = /^0\d{9}$/;
+
+const PHONE_HINT_DEFAULT = phoneHint ? phoneHint.textContent : '';
+const PHONE_HINT_CONVERTED = 'Номер автоматично приведено до формату +380XXXXXXXXX.';
+
+/** Повертає звичайний текст підказки під полем телефону. */
+function resetPhoneHint() {
+    if (phoneHint && phoneHint.textContent !== PHONE_HINT_DEFAULT) {
+        phoneHint.textContent = PHONE_HINT_DEFAULT;
+    }
+}
+
+/**
+ * Якщо в полі рівно 10 цифр і вони починаються з 0, додає код країни: 0501234567 -> +380501234567.
+ * Інші значення (пробіли, літери, інша довжина) не змінюються, щоб не приховувати помилку.
+ */
+function normalizePhone() {
+    if (REGEX_PHONE_LOCAL.test(phoneInput.value)) {
+        phoneInput.value = '+38' + phoneInput.value;
+        if (phoneHint) {
+            phoneHint.textContent = PHONE_HINT_CONVERTED;
+        }
+    }
+}
+
+/* =========================================================
+   6. Функції валідації (перевіряють і оновлюють інтерфейс; повертають true/false)
+   ========================================================= */
+
+/** Застосовує результат перевірки до інтерфейсу й повертає його. */
+function applyResult(isValid, input, errorElement) {
+    if (isValid) {
+        showSuccess(input, errorElement);
+    } else {
+        showError(input, errorElement);
+    }
+    return isValid;
+}
 
 /** Ім'я: не порожнє, мінімум 2 символи (пробіли по краях не враховуються). */
 function validateName() {
-    const isValid = nameInput.value.trim().length >= MIN_NAME_LENGTH;
-    if (isValid) {
-        showSuccess(nameInput, nameError);
-    } else {
-        showError(nameInput, nameError);
-    }
-    return isValid;
+    return applyResult(isNameValid(), nameInput, nameError);
 }
 
 /** Email: коректний формат. */
 function validateEmail() {
-    const isValid = REGEX_EMAIL.test(emailInput.value);
-    if (isValid) {
-        showSuccess(emailInput, emailError);
-    } else {
-        showError(emailInput, emailError);
-    }
-    return isValid;
+    return applyResult(isEmailValid(), emailInput, emailError);
 }
 
 /** Телефон: строго +380XXXXXXXXX. */
 function validatePhone() {
-    const isValid = REGEX_PHONE.test(phoneInput.value);
-    if (isValid) {
-        showSuccess(phoneInput, phoneError);
-    } else {
-        showError(phoneInput, phoneError);
-    }
-    return isValid;
+    return applyResult(isPhoneValid(), phoneInput, phoneError);
 }
 
 /** Повідомлення: мінімум 10 символів (пробіли по краях не враховуються). */
 function validateMessage() {
-    const isValid = messageInput.value.trim().length >= MIN_MESSAGE_LENGTH;
-    if (isValid) {
-        showSuccess(messageInput, messageError);
-    } else {
-        showError(messageInput, messageError);
-    }
-    return isValid;
+    return applyResult(isMessageValid(), messageInput, messageError);
 }
 
 /** Згода: чекбокс має бути вибраний. */
 function validateAgreement() {
-    const isValid = agreementInput.checked;
-    if (isValid) {
-        showSuccess(agreementInput, agreementError);
-    } else {
-        showError(agreementInput, agreementError);
-    }
-    return isValid;
+    return applyResult(isAgreementValid(), agreementInput, agreementError);
 }
 
 /* =========================================================
-   6. Обробка надсилання форми
+   7. Динамічна валідація (input, blur, change)
    ========================================================= */
 
+// Опис усіх полів у порядку, у якому вони розташовані у формі
+const fields = [
+    { input: nameInput, error: nameError, isValid: isNameValid, validate: validateName },
+    { input: emailInput, error: emailError, isValid: isEmailValid, validate: validateEmail },
+    { input: phoneInput, error: phoneError, isValid: isPhoneValid, validate: validatePhone, normalize: normalizePhone },
+    { input: messageInput, error: messageError, isValid: isMessageValid, validate: validateMessage },
+    { input: agreementInput, error: agreementError, isValid: isAgreementValid, validate: validateAgreement }
+];
+
+// Поля, з якими користувач уже «попрацював» (вийшов із них або спробував надіслати форму)
+const touchedFields = new Set();
+
+/**
+ * Подія input.
+ * - Поле вже «торкнуте»: повна перевірка на кожен символ (помилка зникає одразу після виправлення).
+ * - Ще не «торкнуте»: помилку не показуємо передчасно; лише підсвічуємо успіх, якщо значення вже правильне.
+ */
+function handleInput(field) {
+    if (touchedFields.has(field.input)) {
+        field.validate();
+    } else if (field.isValid()) {
+        showSuccess(field.input, field.error);
+    } else {
+        clearError(field.input, field.error);
+    }
+}
+
+/** Подія blur (вихід із поля): за потреби нормалізуємо значення, поле стає «торкнутим», показуємо підсумок перевірки. */
+function handleBlur(field) {
+    touchedFields.add(field.input);
+    if (field.normalize) {
+        field.normalize();
+    }
+    field.validate();
+}
+
 if (form) {
+    fields.forEach((field) => {
+        if (field.input.type === 'checkbox') {
+            // Клік по чекбоксу — свідома дія, тому перевіряємо одразу
+            field.input.addEventListener('change', () => {
+                touchedFields.add(field.input);
+                field.validate();
+            });
+        } else {
+            field.input.addEventListener('input', () => handleInput(field));
+        }
+        field.input.addEventListener('blur', () => handleBlur(field));
+    });
+
+    // Під час нового редагування телефону повертаємо звичайну підказку
+    phoneInput.addEventListener('input', resetPhoneHint);
+
+    /* =========================================================
+       8. Обробка надсилання форми
+       ========================================================= */
+
     form.addEventListener('submit', (event) => {
         // Забороняємо стандартне надсилання й перезавантаження сторінки
         event.preventDefault();
 
+        // Під час submit усі поля вважаються «торкнутими»; за потреби нормалізуємо значення
+        // (потрібно, якщо користувач натиснув Enter у полі й blur не відбувся)
+        fields.forEach((field) => {
+            touchedFields.add(field.input);
+            if (field.normalize) {
+                field.normalize();
+            }
+        });
+
         // Перевіряємо ВСІ поля (не зупиняємось на першій помилці),
-        // щоб користувач одразу побачив усі проблеми. Порядок збігається з порядком у формі.
-        const results = [
-            { isValid: validateName(), input: nameInput },
-            { isValid: validateEmail(), input: emailInput },
-            { isValid: validatePhone(), input: phoneInput },
-            { isValid: validateMessage(), input: messageInput },
-            { isValid: validateAgreement(), input: agreementInput }
-        ];
+        // щоб користувач одразу побачив усі проблеми.
+        const results = fields.map((field) => ({ isValid: field.validate(), input: field.input }));
 
         // Якщо є помилки — форму не «надсилаємо», фокус на перше помилкове поле
         const firstInvalid = results.find((result) => !result.isValid);
