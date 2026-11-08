@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <!-- Налаштування адаптивності сторінки для мобільних пристроїв -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO-опис сторінки, який може використовуватися пошуковими системами -->
+    <title>Про нас — Via Europe</title>
+    <meta name="description" content="Via Europe допомагає планувати подорожі Європою: добираємо напрямки, будуємо маршрути та збираємо корисні поради в одному місці.">
+
+    <!-- Попереднє встановлення з'єднання із сервісом Google Fonts для прискорення завантаження шрифтів -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Підключення шрифтів Archivo Black та Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Підключення Font Awesome для використання іконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Підключення Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Налаштування власної конфігурації Tailwind CSS -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#17243A',
+                        'primary-hover': '#0f1a2b',
+                        muted: '#5A6570',
+                        'text-light': '#C7CBD2',
+                        secondary: '#F5F5F5',
+                        border: '#E5E5E5',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        heading: ['Archivo Black', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+
+    <!-- Підключення власного CSS-файлу з додатковими стилями -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<!-- Основна частина сторінки -->
+<body class="m-0 bg-white font-sans leading-relaxed text-primary">
+
+    <!-- HEADER: ШАПКА САЙТУ -->
+    <header class="sticky top-0 z-50 flex items-center justify-between gap-6 border-b border-[#E5E5E5] bg-white px-[7%] py-4">
+        <!-- Логотип із посиланням на головну сторінку -->
+        <a
+            class="shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+            href="index.html"
+            aria-label="Via Europe — на головну"
+        >
+            <img
+                src="assets/icons/logo.svg"
+                alt="Via Europe"
+                class="block h-auto w-[140px] object-contain"
+            >
+        </a>
+
+        <!-- Навігаційне меню для комп'ютерної версії -->
+        <nav class="hidden flex-nowrap items-center gap-7 md:flex" aria-label="Основна навігація">
+            <a href="index.html" class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Головна</a>
+            <a href="countries.html" class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Країни</a>
+            <a href="countries.html" class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Міста</a>
+            <a href="planner.html" class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Планер</a>
+            <a href="account.html" class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Мій профіль</a>
+        </nav>
+
+        <!-- Кнопка створення маршруту для комп'ютерної версії -->
+        <a
+            href="planner.html"
+            class="hidden shrink-0 items-center justify-center whitespace-nowrap rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary md:inline-flex"
+        >
+            Створити маршрут
+        </a>
+
+        <!-- Кнопка відкриття мобільного меню -->
+        <button
+            id="menu-btn"
+            type="button"
+            class="flex h-11 w-11 flex-col items-center justify-center gap-[5px] rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:hidden"
+            aria-label="Відкрити меню"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+        >
+            <span class="block h-0.5 w-6 origin-center bg-primary transition-all duration-300"></span>
+            <span class="block h-0.5 w-6 bg-primary transition-all duration-300"></span>
+            <span class="block h-0.5 w-6 origin-center bg-primary transition-all duration-300"></span>
+        </button>
+    </header>
+
+    <!-- MOBILE MENU: МОБІЛЬНЕ МЕНЮ -->
+    <div
+        id="mobile-menu"
+        class="fixed inset-x-0 bottom-0 top-[68px] z-40 hidden flex-col gap-6 overflow-y-auto bg-white px-[7%] py-8 shadow-lg md:hidden"
+        inert
+    >
+        <nav class="flex flex-col gap-1" aria-label="Мобільна навігація">
+            <a href="index.html" class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary">Головна</a>
+            <a href="countries.html" class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary">Країни</a>
+            <a href="index.html#destinations" class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary">Міста</a>
+            <a href="planner.html" class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary">Планер</a>
+            <a href="account.html" class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary">Мій профіль</a>
+        </nav>
+
+        <a
+            href="planner.html"
+            class="mobile-link mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-lg bg-primary px-5 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        >
+            Створити маршрут
+        </a>
+    </div>
+
+    <!-- Основний вміст сторінки -->
+    <main>
+
+        <!-- ЗАГОЛОВОК СТОРІНКИ: градієнтний фон у кольорах сайту -->
+        <section class="relative overflow-hidden bg-gradient-to-br from-primary to-[#2A4066] px-[7%] py-12 text-white sm:py-16" aria-labelledby="about-title">
+            <!-- Декоративні кола (приховані від допоміжних технологій) -->
+            <div class="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/5" aria-hidden="true"></div>
+            <div class="pointer-events-none absolute -bottom-24 left-1/3 h-64 w-64 rounded-full bg-white/5" aria-hidden="true"></div>
+
+            <div class="relative mx-auto max-w-[1100px]">
+                <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-text-light">Про нас</p>
+                <h1 id="about-title" class="mb-4 font-heading text-[28px] font-bold leading-tight sm:text-4xl">Європа — без хаосу в планах</h1>
+                <p class="max-w-[560px] text-text-light">Via Europe допомагає обрати напрямок, скласти маршрут і зібрати все потрібне для поїздки в одному місці.</p>
+            </div>
+        </section>
+
+        <!-- МІСІЯ: короткий текст + виділена цитата-панель -->
+        <section class="bg-white px-[7%] py-12 sm:py-16" aria-labelledby="mission-title">
+            <div class="mx-auto grid max-w-[1100px] gap-8 lg:grid-cols-[1fr_380px] lg:items-start lg:gap-12">
+                <div>
+                    <h2 id="mission-title" class="mb-4 text-2xl font-semibold leading-snug sm:text-3xl">Навіщо ми створили Via Europe</h2>
+                    <p class="mb-4 max-w-[640px] text-muted">Планувати подорож по Європі зазвичай означає десятки відкритих вкладок: де зупинитися, що встигнути за два дні, як дістатися з міста до міста. Ми хотіли зібрати все це на одному сайті й зробити процес простим.</p>
+                    <p class="max-w-[640px] text-muted">Via Europe поєднує добірки країн і міст із планувальником маршрутів. Ви обираєте, куди хочете поїхати, а ми допомагаємо перетворити ідею на зрозумілий план.</p>
+                </div>
+
+                <aside class="rounded-2xl bg-primary p-6 text-white sm:p-8" aria-label="Наша мета">
+                    <span class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white/10" aria-hidden="true">
+                        <i class="fa-solid fa-compass"></i>
+                    </span>
+                    <p class="text-lg font-semibold leading-snug">Подорож має починатися з радості, а не з десяти вкладок у браузері.</p>
+                </aside>
+            </div>
+        </section>
+
+        <!-- ЩО МИ РОБИМО: три напрями -->
+        <section class="bg-secondary px-[7%] py-12 sm:py-16" aria-labelledby="what-title">
+            <div class="mx-auto max-w-[1100px]">
+                <h2 id="what-title" class="mb-8 text-2xl font-semibold leading-snug sm:text-3xl">Що ви знайдете на сайті</h2>
+
+                <ul class="grid gap-5 md:grid-cols-3">
+                    <li class="rounded-2xl border border-border bg-white p-6 shadow-[0_12px_40px_-12px_rgba(23,36,58,0.18)]">
+                        <span class="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-primary text-white" aria-hidden="true">
+                            <i class="fa-solid fa-earth-europe"></i>
+                        </span>
+                        <h3 class="mb-2 text-base font-semibold">Країни та міста</h3>
+                        <p class="text-sm text-muted">Огляди напрямків: що подивитися, коли їхати та чим кожне місце відрізняється від інших.</p>
+                    </li>
+                    <li class="rounded-2xl border border-border bg-white p-6 shadow-[0_12px_40px_-12px_rgba(23,36,58,0.18)]">
+                        <span class="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-primary text-white" aria-hidden="true">
+                            <i class="fa-solid fa-route"></i>
+                        </span>
+                        <h3 class="mb-2 text-base font-semibold">Планувальник маршрутів</h3>
+                        <p class="text-sm text-muted">Вкажіть напрямок і тривалість поїздки та отримайте готовий маршрут, який можна змінити під себе.</p>
+                    </li>
+                    <li class="rounded-2xl border border-border bg-white p-6 shadow-[0_12px_40px_-12px_rgba(23,36,58,0.18)]">
+                        <span class="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-primary text-white" aria-hidden="true">
+                            <i class="fa-regular fa-bookmark"></i>
+                        </span>
+                        <h3 class="mb-2 text-base font-semibold">Особистий профіль</h3>
+                        <p class="text-sm text-muted">Зберігайте свої маршрути в профілі й повертайтеся до них, коли будете готові їхати.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ЯК ЦЕ ПРАЦЮЄ: справжня послідовність кроків -->
+        <section class="bg-white px-[7%] py-12 sm:py-16" aria-labelledby="how-title">
+            <div class="mx-auto max-w-[1100px]">
+                <h2 id="how-title" class="mb-8 text-2xl font-semibold leading-snug sm:text-3xl">Як спланувати поїздку</h2>
+
+                <ol class="grid gap-6 md:grid-cols-3">
+                    <li class="flex gap-4">
+                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white" aria-hidden="true">1</span>
+                        <div>
+                            <h3 class="text-base font-semibold">Оберіть напрямок</h3>
+                            <p class="mt-1 text-sm text-muted">Перегляньте країни й міста та зверніть увагу на те, що вам до душі.</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white" aria-hidden="true">2</span>
+                        <div>
+                            <h3 class="text-base font-semibold">Створіть маршрут</h3>
+                            <p class="mt-1 text-sm text-muted">Відкрийте планер, вкажіть, куди й на скільки днів їдете.</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white" aria-hidden="true">3</span>
+                        <div>
+                            <h3 class="text-base font-semibold">Збережіть і вирушайте</h3>
+                            <p class="mt-1 text-sm text-muted">Залиште план у профілі та користуйтеся ним у дорозі.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ПРИНЦИПИ: на темному фоні -->
+        <section class="bg-primary px-[7%] py-12 text-white sm:py-16" aria-labelledby="values-title">
+            <div class="mx-auto max-w-[1100px]">
+                <h2 id="values-title" class="mb-8 text-2xl font-semibold leading-snug sm:text-3xl">Чого ми дотримуємося</h2>
+
+                <ul class="grid gap-6 sm:grid-cols-2">
+                    <li class="flex gap-4">
+                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10" aria-hidden="true">
+                            <i class="fa-solid fa-feather-pointed"></i>
+                        </span>
+                        <div>
+                            <p class="text-sm font-semibold">Простота</p>
+                            <p class="mt-1 text-[13px] text-text-light">Мінімум кроків від ідеї до готового плану.</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10" aria-hidden="true">
+                            <i class="fa-solid fa-check-double"></i>
+                        </span>
+                        <div>
+                            <p class="text-sm font-semibold">Зрозумілість</p>
+                            <p class="mt-1 text-[13px] text-text-light">Пишемо про міста й маршрути чітко, без зайвої води.</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10" aria-hidden="true">
+                            <i class="fa-solid fa-sliders"></i>
+                        </span>
+                        <div>
+                            <p class="text-sm font-semibold">Гнучкість</p>
+                            <p class="mt-1 text-[13px] text-text-light">Кожен маршрут можна змінити відповідно до ваших планів.</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10" aria-hidden="true">
+                            <i class="fa-regular fa-comments"></i>
+                        </span>
+                        <div>
+                            <p class="text-sm font-semibold">Відкритість до відгуків</p>
+                            <p class="mt-1 text-[13px] text-text-light">Ваші ідеї допомагають нам покращувати сайт.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ЗАКЛИК ДО ДІЇ -->
+        <section class="bg-secondary px-[7%] py-12 sm:py-16" aria-labelledby="cta-title">
+            <div class="mx-auto flex max-w-[1100px] flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+                <div>
+                    <h2 id="cta-title" class="mb-2 text-2xl font-semibold leading-snug">Готові почати?</h2>
+                    <p class="max-w-[520px] text-muted">Створіть свій перший маршрут або напишіть нам, якщо маєте запитання.</p>
+                </div>
+                <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+                    <a
+                        href="planner.html"
+                        class="inline-flex min-h-12 items-center justify-center rounded-xl bg-primary px-6 py-3 text-sm font-medium text-white shadow-md shadow-primary/20 transition-colors duration-200 hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                    >
+                        Створити маршрут
+                    </a>
+                    <a
+                        href="contacts.html"
+                        class="inline-flex min-h-12 items-center justify-center rounded-xl border border-primary bg-white px-6 py-3 text-sm font-medium text-primary transition-colors duration-200 hover:bg-primary hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                    >
+                        Зв'язатися з нами
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER: ПІДВАЛ САЙТУ -->
+    <footer class="bg-primary px-[7%] pb-8 pt-12 text-white">
+        <div class="mb-10 flex flex-wrap justify-between gap-12">
+
+            <!-- Блок із логотипом і соціальними мережами -->
+            <div class="max-w-[240px]">
+                <a href="index.html" aria-label="Via Europe — на головну" class="rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+                    <img src="assets/icons/logo2.svg" alt="Via Europe" class="block h-auto w-[140px] object-contain" loading="lazy" decoding="async">
+                </a>
+                <p class="mb-5 mt-3 text-sm text-text-light">Продумані подорожі Європою.</p>
+
+                <div class="flex gap-3">
+                    <a href="https://www.instagram.com/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"
+                       class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-text-light transition-colors hover:border-white/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                        <i class="fa-brands fa-instagram text-[1.1rem]" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.facebook.com/" aria-label="Facebook" target="_blank" rel="noopener noreferrer"
+                       class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-text-light transition-colors hover:border-white/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                        <i class="fa-brands fa-facebook-f text-[1.1rem]" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.youtube.com/" aria-label="YouTube" target="_blank" rel="noopener noreferrer"
+                       class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-text-light transition-colors hover:border-white/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                        <i class="fa-brands fa-youtube text-[1.1rem]" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Навігаційні блоки футера -->
+            <nav class="flex flex-wrap gap-10 sm:gap-16" aria-label="Посилання у футері">
+                <div>
+                    <h2 class="mb-3.5 text-[13px] font-semibold text-white">Подорожі</h2>
+                    <ul class="space-y-2.5">
+                        <li><a href="index.html#destinations" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Напрямки</a></li>
+                        <li><a href="planner.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Планер</a></li>
+                        <li><a href="index.html#destinations" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Міста</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2 class="mb-3.5 text-[13px] font-semibold text-white">Via Europe</h2>
+                    <ul class="space-y-2.5">
+                        <li><a href="about.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Про нас</a></li>
+                        <li><a href="planner.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Планер</a></li>
+                        <li><a href="account.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Кабінет</a></li>
+                        <li><a href="contacts.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Контакти</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2 class="mb-3.5 text-[13px] font-semibold text-white">Інформація</h2>
+                    <ul class="space-y-2.5">
+                        <li><a href="index.html#ideas" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Поради</a></li>
+                        <li><a href="index.html#about" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Політика</a></li>
+                        <li><a href="index.html#about" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Умови</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Нижня частина футера з інформацією про авторські права -->
+        <p class="m-0 border-t border-white/10 pt-6 text-xs text-text-light">
+            © 2026 Via Europe. Усі права захищені.
+        </p>
+    </footer>
+
+    <!-- Mobile menu script (скопійовано з contacts.html без змін) -->
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const spans = menuBtn.querySelectorAll('span');
+
+        function closeMenu() {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex');
+            mobileMenu.inert = true;
+
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.setAttribute('aria-label', 'Відкрити меню');
+
+            spans[0].classList.remove('rotate-45', 'translate-y-[7px]');
+            spans[1].classList.remove('opacity-0');
+            spans[2].classList.remove('-rotate-45', '-translate-y-[7px]');
+        }
+
+        function openMenu() {
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('flex');
+            mobileMenu.inert = false;
+
+            menuBtn.setAttribute('aria-expanded', 'true');
+            menuBtn.setAttribute('aria-label', 'Закрити меню');
+
+            spans[0].classList.add('rotate-45', 'translate-y-[7px]');
+            spans[1].classList.add('opacity-0');
+            spans[2].classList.add('-rotate-45', '-translate-y-[7px]');
+        }
+
+        menuBtn.addEventListener('click', () => {
+            const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
+
+            if (isOpen) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        document.addEventListener('keydown', event => {
+            const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
+
+            if (event.key === 'Escape' && isOpen) {
+                closeMenu();
+                menuBtn.focus();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeMenu();
+            }
+        });
+    </script>
+
+</body>
+</html>
