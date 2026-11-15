@@ -1,40 +1,32 @@
-<!-- Лабораторна робота 8: тест Git -->
-<!-- Третій коміт: перевірка роботи через термінал -->
-<!-- Зміна в гілці feature-test -->
 <!DOCTYPE html>
 <html lang="uk">
   <head>
     <meta charset="UTF-8" />
-    <!--Налаштування адаптивності сторінки для мобільних пристроїв -->
+    <!-- Адаптивність сторінки для мобільних пристроїв -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- SEO-опис сторінки, який може використовуватися пошуковими системами -->
+    <!-- SEO: заголовок і опис сторінки для пошукових систем -->
     <title>Via Europe — твій гід Європою</title>
-    <meta
-      name="description"
-      content="Створюй персональні маршрути Європою, досліджуй міста та знаходь напрямки відповідно до своїх інтересів і бюджету."
-    />
+    <meta name="description" content="Створюй персональні маршрути Європою, досліджуй міста та знаходь напрямки відповідно до своїх інтересів і бюджету." />
 
-    <!-- Попереднє встановлення з'єднання із сервісом Google Fonts для прискорення завантаження шрифтів -->
+    <!-- ========== ШРИФТИ ТА ІКОНКИ ========== -->
+    <!-- Прискорюємо з'єднання з Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- Підключення шрифтів Archivo Black для заголовків та Inter для основного тексту -->
+    <!-- Archivo Black — заголовки, Inter — основний текст -->
     <link
       href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
-    <!-- Підключення Font Awesome для використання іконок соціальних мереж -->
+    <!-- Font Awesome — іконки соціальних мереж -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
 
-    <!-- Підключення Tailwind CSS -->
+    <!-- ========== TAILWIND CSS (CDN) ========== -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Налаштування власної конфігурації Tailwind CSS -->
+    <!-- Власна конфігурація Tailwind: кольори та шрифти проєкту -->
     <script>
       tailwind.config = {
         theme: {
@@ -56,128 +48,43 @@
       };
     </script>
 
+    <!-- ========== CSS БІБЛІОТЕК (CDN) ========== -->
     <!-- Swiper.js v11: стилі слайдера -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
-
     <!-- Fancybox v5: стилі галереї -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"
     />
 
-    <!-- Підключення власного CSS-файлу з додатковими стилями -->
+    <!-- AOS.js: стилі анімації появи при прокручуванні -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+    />
+
+    <!-- ========== ВЛАСНІ СТИЛІ (підключаємо останніми, щоб вони мали пріоритет) ========== -->
     <link rel="stylesheet" href="css/style.css" />
-
-    <!-- Swiper.js v11: скрипт бібліотеки -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-    <!-- Fancybox v5: скрипт бібліотеки -->
-    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
-
-    <!-- Ініціалізація Swiper (відгуки та ідеї) і Fancybox -->
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        // ===== Карусель відгуків =====
-        const reviewsEl = document.querySelector('.reviews-swiper');
-        // Захист від повторної ініціалізації
-        if (reviewsEl && !reviewsEl.swiper) {
-          new Swiper(reviewsEl, {
-            loop: true, // нескінченне прокручування
-            spaceBetween: 20, // відстань між слайдами, px
-            slidesPerView: 1, // мобільні: 1 слайд
-            grabCursor: true,
-
-            // Автопрокручування кожні 3,5 с, пауза при наведенні миші
-            autoplay: {
-              delay: 3500,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            },
-
-            // Стрілки по боках
-            navigation: {
-              nextEl: '.reviews-next',
-              prevEl: '.reviews-prev',
-            },
-
-            // Крапки, на які можна клікати
-            pagination: {
-              el: '.reviews-pagination',
-              clickable: true,
-            },
-
-            // Адаптивність
-            breakpoints: {
-              640: { slidesPerView: 2 }, // планшет
-              1024: { slidesPerView: 3 }, // комп'ютер
-            },
-          });
-        }
-
-        // ===== Карусель ідей (без loop, щоб Fancybox не дублював фото) =====
-        const ideasEl = document.querySelector('.ideas-swiper');
-        if (ideasEl && !ideasEl.swiper) {
-          new Swiper(ideasEl, {
-            rewind: true, // після останнього слайда повернення до першого
-            spaceBetween: 20,
-            slidesPerView: 1,
-            grabCursor: true,
-
-            autoplay: {
-              delay: 4000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            },
-
-            navigation: { nextEl: '.ideas-next', prevEl: '.ideas-prev' },
-            pagination: { el: '.ideas-pagination', clickable: true },
-
-            breakpoints: {
-              640: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-            },
-          });
-        }
-                    // ===== Typed.js: друкування заголовка Hero =====
-                    const typedEl = document.querySelector('#typed-title');
-            // Перевіряємо, що бібліотека завантажилась і елемент ще не ініціалізований
-            if (typedEl && window.Typed && !typedEl.dataset.typedInit) {
-                typedEl.dataset.typedInit = 'true';
-
-                new Typed('#typed-title', {
-                    strings: ['Відкривай Європу не за шаблоном'],
-                    typeSpeed: 60,       // швидкість друку, мс на символ
-                    startDelay: 400,
-                    loop: false,         // друкується один раз
-                    showCursor: true,    // курсор лишається після друку
-                });
-            }
-        // ===== Fancybox: група фото ідей =====
-        if (window.Fancybox) {
-          Fancybox.bind('[data-fancybox="ideas-gallery"]', {
-            Hash: false, // не змінювати адресу сторінки
-            Thumbs: { type: 'classic' }, // мініатюри внизу
-            Toolbar: {
-              display: {
-                left: ['counter'],
-                middle: ['zoomIn', 'zoomOut', 'toggle1to1'],
-                right: ['close'],
-              },
-            },
-          });
-        }
-      });
-    </script>
-
-        <!-- Typed.js v2: ефект друкування тексту -->
-        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
   </head>
 
-  <!-- Основна частина сторінки -->
   <body class="m-0 bg-white font-sans leading-relaxed text-primary">
+
+  <!--
+    СТРУКТУРА СТОРІНКИ:
+    1. header        — шапка з навігацією
+    2. #mobile-menu  — мобільне меню
+    3. #home         — Hero (головний екран)
+    4. #features     — переваги сервісу
+    5. #destinations — популярні напрямки (сітка карток)
+    6. #ideas        — ідеї подорожей (Swiper + Fancybox)
+    7. #reviews      — відгуки мандрівників (Swiper)
+    8. #planner      — заклик до дії
+    9. footer        — підвал
+  -->
+
     <!-- HEADER: ШАПКА САЙТ -->
     <header
       class="sticky top-0 z-50 flex items-center justify-between gap-6 border-b border-[#E5E5E5] bg-white px-[7%] py-4"
@@ -323,15 +230,8 @@
             <h1
               id="hero-title"
               class="mb-5 font-heading text-[44px] font-bold leading-[1.15] text-white"
-            >                    <!-- Головний заголовок сторінки (друкується через Typed.js) -->
-            <h1 id="hero-title" class="relative mb-5 font-heading text-[44px] font-bold leading-[1.15] text-white">
-                <!-- Повний текст для пошукових систем і скрінрідерів -->
-                <span class="sr-only">Відкривай Європу не за шаблоном</span>
-                <!-- Невидимий дублікат займає місце, щоб макет не стрибав під час друку -->
-                <span class="invisible block" aria-hidden="true">Відкривай Європу не за шаблоном</span>
-                <!-- Сюди друкується текст -->
-                <span class="absolute inset-0" aria-hidden="true"><span id="typed-title"></span></span>
-            </h1>
+            >
+              Відкривай Європу не за шаблоном
             </h1>
 
             <!-- Опис під головним заголовком -->
@@ -359,7 +259,7 @@
         id="features"
         aria-labelledby="features-title"
       >
-        <header class="mb-10 max-w-[640px]">
+        <header class="mb-10 max-w-[640px]" data-aos="fade-up">
           <!-- Невеликий текстовий напис над заголовком секції -->
           <p
             class="mb-3 inline-block text-[11px] font-bold uppercase tracking-[1.5px] text-muted"
@@ -383,6 +283,7 @@
 
         <!-- Сітка карток переваг -->
         <div
+          data-aos="fade-up" data-aos-delay="100"
           class="mx-auto grid max-w-[1500px] grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4"
         >
           <!-- Перша картка: персональні маршрути -->
@@ -537,7 +438,7 @@
         aria-labelledby="destinations-title"
       >
         <!-- Заголовок секції -->
-        <header class="mx-auto mb-10 max-w-[640px] text-center">
+        <header class="mx-auto mb-10 max-w-[640px] text-center" data-aos="fade-up">
           <p
             class="mb-3 inline-block text-[11px] font-bold uppercase tracking-[1.5px] text-muted"
           >
@@ -557,6 +458,7 @@
 
         <!-- Сітка карток країн -->
         <div
+          data-aos="fade-up" data-aos-delay="100"
           class="mx-auto grid max-w-[1500px] grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3"
         >
           <!-- Картка Італії -->
@@ -820,7 +722,7 @@
         aria-labelledby="ideas-title"
       >
         <!-- Заголовок секції -->
-        <header class="mb-10 max-w-[640px]">
+        <header class="mb-10 max-w-[640px]" data-aos="fade-up">
           <p
             class="mb-3 inline-block text-[11px] font-bold uppercase tracking-[1.5px] text-muted"
           >
@@ -838,7 +740,7 @@
         </header>
 
         <!-- Карусель ідей (Swiper.js) + перегляд фото (Fancybox) -->
-        <div class="mx-auto max-w-[1500px]">
+        <div class="mx-auto max-w-[1500px]" data-aos="fade-up" data-aos-delay="100">
           <div class="ideas-wrap">
             <!-- Стрілка ліворуч -->
             <button
@@ -1121,7 +1023,7 @@
         aria-labelledby="reviews-title"
       >
         <!-- Заголовок секції -->
-        <header class="mx-auto mb-10 max-w-[640px] text-center">
+        <header class="mx-auto mb-10 max-w-[640px] text-center" data-aos="fade-up">
           <p
             class="mb-3 inline-block text-[11px] font-bold uppercase tracking-[1.5px] text-muted"
           >
@@ -1139,7 +1041,7 @@
         </header>
 
         <!-- Слайдер відгуків (Swiper.js) -->
-        <div class="mx-auto max-w-[1500px]">
+        <div class="mx-auto max-w-[1500px]" data-aos="fade-up" data-aos-delay="100">
           <!-- Обгортка: стрілки позиціюються відносно неї -->
           <div class="reviews-wrap">
             <!-- Стрілка ліворуч -->
@@ -1356,7 +1258,7 @@
         id="planner"
         aria-labelledby="planner-title"
       >
-        <header class="mx-auto max-w-[560px]">
+        <header class="mx-auto max-w-[560px]" data-aos="fade-up">
           <p
             class="mb-4 inline-block rounded-md bg-white/30 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[1.5px] text-white"
           >
@@ -1547,16 +1449,34 @@
       </p>
     </footer>
 
-    <!-- Mobile menu script -->
+    <!-- ==================================================================
+         СКРИПТИ (підключаємо в кінці <body>, щоб не блокувати показ сторінки)
+         ================================================================== -->
+
+    <!-- 1. JS-бібліотеки через CDN (порядок не важливий, вони незалежні) -->
+    <!-- Swiper.js v11 — слайдери -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Fancybox v5 — галерея зображень -->
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
+    <!-- AOS.js — анімація появи елементів при прокручуванні -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- 2. Ініціалізація бібліотек (має йти ПІСЛЯ самих бібліотек) -->
+    <script src="js/libs-init.js"></script>
+
+    <!-- 3. Мобільне меню: відкриття, закриття, клавіша Esc, зміна розміру вікна -->
     <script>
       const menuBtn = document.getElementById('menu-btn');
       const mobileMenu = document.getElementById('mobile-menu');
+      // Три смужки іконки-«бургера»
       const spans = menuBtn.querySelectorAll('span');
 
+      // Закриває меню та повертає іконку у вихідний стан
       function closeMenu() {
         mobileMenu.classList.add('hidden');
         mobileMenu.classList.remove('flex');
-        mobileMenu.inert = true;
+        mobileMenu.inert = true; // недоступне для клавіатури, поки закрите
 
         menuBtn.setAttribute('aria-expanded', 'false');
         menuBtn.setAttribute('aria-label', 'Відкрити меню');
@@ -1566,6 +1486,7 @@
         spans[2].classList.remove('-rotate-45', '-translate-y-[7px]');
       }
 
+      // Відкриває меню та перетворює «бургер» на хрестик
       function openMenu() {
         mobileMenu.classList.remove('hidden');
         mobileMenu.classList.add('flex');
@@ -1579,6 +1500,7 @@
         spans[2].classList.add('-rotate-45', '-translate-y-[7px]');
       }
 
+      // Клік по кнопці: перемикаємо стан меню
       menuBtn.addEventListener('click', () => {
         const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
 
@@ -1589,10 +1511,12 @@
         }
       });
 
+      // Клік по посиланню в меню закриває його
       document.querySelectorAll('.mobile-link').forEach((link) => {
         link.addEventListener('click', closeMenu);
       });
 
+      // Клавіша Esc закриває меню й повертає фокус на кнопку
       document.addEventListener('keydown', (event) => {
         const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
 
@@ -1602,6 +1526,7 @@
         }
       });
 
+      // На широкому екрані (від 768px) меню завжди закрите
       window.addEventListener('resize', () => {
         if (window.innerWidth >= 768) {
           closeMenu();
@@ -1609,8 +1534,9 @@
       });
     </script>
 
-    <!-- «Переглянути більше» / «Показати менше» -->
+    <!-- 4. Кнопки «Переглянути більше» / «Показати менше» (секція напрямків) -->
     <script>
+      // Запам'ятовуємо, яким саме класом Tailwind сховано кожну додаткову картку
       document.querySelectorAll('[data-extra]').forEach((card) => {
         card.dataset.hideClass = ['lg:hidden', 'max-lg:hidden', 'hidden'].find(
           (c) => card.classList.contains(c)
@@ -1619,7 +1545,7 @@
 
       document.querySelectorAll('[data-more-button]').forEach((button) => {
         const section = button.closest('section');
-        const moreText = button.textContent.trim();
+        const moreText = button.textContent.trim(); // початковий текст кнопки
         let expanded = false;
 
         button.setAttribute('aria-expanded', 'false');
@@ -1627,6 +1553,7 @@
         button.addEventListener('click', () => {
           expanded = !expanded;
 
+          // Показуємо або ховаємо додаткові картки цієї секції
           section.querySelectorAll('[data-extra]').forEach((card) => {
             card.classList.toggle(card.dataset.hideClass, !expanded);
           });
