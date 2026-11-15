@@ -19,7 +19,9 @@
   h1,
   h2,
   h3 {
-    font-family: 'Raleway', sans-serif;
+    /* Montserrat підтримує кирилицю; 800 = ExtraBold (дуже жирний) */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800 !important;
   }
   
   .skip-link {
@@ -147,7 +149,7 @@
     bottom: 1.1rem;
     left: 1.1rem;
     color: #fff;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: clamp(1rem, 2vw, 1.45rem);
     font-weight: 700;
   }

@@ -90,6 +90,13 @@ function initIdeasGallery() {
   // Параметри Fancybox: мініатюри, лічильник, керування зумом
   const options = {
     Hash: false, // не змінювати адресу сторінки
+
+    // Ефект переходу між фото: плавне згасання (fade)
+    Carousel: { transition: 'fade' },
+
+    // Зум зображень: збільшення до 3× (колесо миші, подвійний клік, щипок на телефоні)
+    Images: { Panzoom: { maxScale: 3 } },
+
     Thumbs: { type: 'classic' }, // мініатюри внизу
     Toolbar: {
       display: {
