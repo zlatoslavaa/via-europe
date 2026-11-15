@@ -1,644 +1,1640 @@
 <!-- Лабораторна робота 8: тест Git -->
- <!-- Третій коміт: перевірка роботи через термінал -->
-  <!-- Зміна в гілці feature-test -->
+<!-- Третій коміт: перевірка роботи через термінал -->
+<!-- Зміна в гілці feature-test -->
 <!DOCTYPE html>
 <html lang="uk">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <!--Налаштування адаптивності сторінки для мобільних пристроїв -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-     <!-- SEO-опис сторінки, який може використовуватися пошуковими системами -->
+    <!-- SEO-опис сторінки, який може використовуватися пошуковими системами -->
     <title>Via Europe — твій гід Європою</title>
-    <meta name="description" content="Створюй персональні маршрути Європою, досліджуй міста та знаходь напрямки відповідно до своїх інтересів і бюджету.">
+    <meta
+      name="description"
+      content="Створюй персональні маршрути Європою, досліджуй міста та знаходь напрямки відповідно до своїх інтересів і бюджету."
+    />
 
     <!-- Попереднє встановлення з'єднання із сервісом Google Fonts для прискорення завантаження шрифтів -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- Підключення шрифтів Archivo Black для заголовків та Inter для основного тексту -->
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Підключення Font Awesome для використання іконок соціальних мереж -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
 
     <!-- Підключення Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Налаштування власної конфігурації Tailwind CSS -->
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#17243A',
-                        'primary-hover': '#0f1a2b',
-                        muted: '#5A6570',
-                        'text-light': '#C7CBD2',
-                        secondary: '#F5F5F5',
-                        border: '#E5E5E5',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        heading: ['Archivo Black', 'sans-serif'],
-                    },
-                },
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#17243A',
+              'primary-hover': '#0f1a2b',
+              muted: '#5A6570',
+              'text-light': '#C7CBD2',
+              secondary: '#F5F5F5',
+              border: '#E5E5E5',
             },
-        }
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+              heading: ['Archivo Black', 'sans-serif'],
+            },
+          },
+        },
+      };
     </script>
 
-     <!-- Підключення власного CSS-файлу з додатковими стилями -->
-    <link rel="stylesheet" href="css/style.css">
-</head>
+    <!-- Swiper.js v11: стилі слайдера -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
 
-<!-- Основна частина сторінки -->
-<body class="m-0 bg-white font-sans leading-relaxed text-primary">
+    <!-- Fancybox v5: стилі галереї -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"
+    />
 
+    <!-- Підключення власного CSS-файлу з додатковими стилями -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Swiper.js v11: скрипт бібліотеки -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Fancybox v5: скрипт бібліотеки -->
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
+    <!-- Ініціалізація Swiper (відгуки та ідеї) і Fancybox -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // ===== Карусель відгуків =====
+        const reviewsEl = document.querySelector('.reviews-swiper');
+        // Захист від повторної ініціалізації
+        if (reviewsEl && !reviewsEl.swiper) {
+          new Swiper(reviewsEl, {
+            loop: true, // нескінченне прокручування
+            spaceBetween: 20, // відстань між слайдами, px
+            slidesPerView: 1, // мобільні: 1 слайд
+            grabCursor: true,
+
+            // Автопрокручування кожні 3,5 с, пауза при наведенні миші
+            autoplay: {
+              delay: 3500,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            },
+
+            // Стрілки по боках
+            navigation: {
+              nextEl: '.reviews-next',
+              prevEl: '.reviews-prev',
+            },
+
+            // Крапки, на які можна клікати
+            pagination: {
+              el: '.reviews-pagination',
+              clickable: true,
+            },
+
+            // Адаптивність
+            breakpoints: {
+              640: { slidesPerView: 2 }, // планшет
+              1024: { slidesPerView: 3 }, // комп'ютер
+            },
+          });
+        }
+
+        // ===== Карусель ідей (без loop, щоб Fancybox не дублював фото) =====
+        const ideasEl = document.querySelector('.ideas-swiper');
+        if (ideasEl && !ideasEl.swiper) {
+          new Swiper(ideasEl, {
+            rewind: true, // після останнього слайда повернення до першого
+            spaceBetween: 20,
+            slidesPerView: 1,
+            grabCursor: true,
+
+            autoplay: {
+              delay: 4000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            },
+
+            navigation: { nextEl: '.ideas-next', prevEl: '.ideas-prev' },
+            pagination: { el: '.ideas-pagination', clickable: true },
+
+            breakpoints: {
+              640: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            },
+          });
+        }
+                    // ===== Typed.js: друкування заголовка Hero =====
+                    const typedEl = document.querySelector('#typed-title');
+            // Перевіряємо, що бібліотека завантажилась і елемент ще не ініціалізований
+            if (typedEl && window.Typed && !typedEl.dataset.typedInit) {
+                typedEl.dataset.typedInit = 'true';
+
+                new Typed('#typed-title', {
+                    strings: ['Відкривай Європу не за шаблоном'],
+                    typeSpeed: 60,       // швидкість друку, мс на символ
+                    startDelay: 400,
+                    loop: false,         // друкується один раз
+                    showCursor: true,    // курсор лишається після друку
+                });
+            }
+        // ===== Fancybox: група фото ідей =====
+        if (window.Fancybox) {
+          Fancybox.bind('[data-fancybox="ideas-gallery"]', {
+            Hash: false, // не змінювати адресу сторінки
+            Thumbs: { type: 'classic' }, // мініатюри внизу
+            Toolbar: {
+              display: {
+                left: ['counter'],
+                middle: ['zoomIn', 'zoomOut', 'toggle1to1'],
+                right: ['close'],
+              },
+            },
+          });
+        }
+      });
+    </script>
+
+        <!-- Typed.js v2: ефект друкування тексту -->
+        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
+  </head>
+
+  <!-- Основна частина сторінки -->
+  <body class="m-0 bg-white font-sans leading-relaxed text-primary">
     <!-- HEADER: ШАПКА САЙТ -->
-    <header class="sticky top-0 z-50 flex items-center justify-between gap-6 border-b border-[#E5E5E5] bg-white px-[7%] py-4">
-         <!-- Логотип із посиланням на головну сторінку -->
-        <a
-            class="shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-            href="#home"
-            aria-label="Via Europe — на головну"
-        >
+    <header
+      class="sticky top-0 z-50 flex items-center justify-between gap-6 border-b border-[#E5E5E5] bg-white px-[7%] py-4"
+    >
+      <!-- Логотип із посиланням на головну сторінку -->
+      <a
+        class="shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+        href="#home"
+        aria-label="Via Europe — на головну"
+      >
         <!-- Зображення логотипа -->
-            <img
-                src="assets/icons/logo.svg"
-                alt="Via Europe"
-                class="block h-auto w-[140px] object-contain"
-            >
-        </a>
+        <img
+          src="assets/icons/logo.svg"
+          alt="Via Europe"
+          class="block h-auto w-[140px] object-contain"
+        />
+      </a>
 
-         <!-- Навігаційне меню для комп'ютерної версії -->
-        <nav class="hidden flex-nowrap items-center gap-7 md:flex" aria-label="Основна навігація">
-            <a href="#home" class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Головна</a>
-            <a href="countries.html" class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Країни</a>
-            <a href="countries.html" class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Міста</a>
-            <a href="planner.html" class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Планер</a>
-            <a href="account.html" class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Мій профіль</a>
-        </nav>
-
-        <!-- Кнопка створення маршруту для комп'ютерної версії -->
+      <!-- Навігаційне меню для комп'ютерної версії -->
+      <nav
+        class="hidden flex-nowrap items-center gap-7 md:flex"
+        aria-label="Основна навігація"
+      >
         <a
-            href="planner.html"
-            class="hidden shrink-0 items-center justify-center whitespace-nowrap rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary md:inline-flex"
+          href="#home"
+          class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          >Головна</a
         >
-            Створити маршрут
-        </a>
+        <a
+          href="countries.html"
+          class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          >Країни</a
+        >
+        <a
+          href="countries.html"
+          class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          >Міста</a
+        >
+        <a
+          href="planner.html"
+          class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          >Планер</a
+        >
+        <a
+          href="account.html"
+          class="whitespace-nowrap rounded-sm text-sm font-medium text-primary transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          >Мій профіль</a
+        >
+      </nav>
 
-        <!-- Кнопка відкриття мобільного меню -->
-        <button
-            id="menu-btn"
-            type="button"
-            class="flex h-11 w-11 flex-col items-center justify-center gap-[5px] rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:hidden"
-            aria-label="Відкрити меню"
-            aria-expanded="false"
-            aria-controls="mobile-menu"
-        >
-         <!-- Три горизонтальні лінії, з яких формується іконка меню -->
-            <span class="block h-0.5 w-6 origin-center bg-primary transition-all duration-300"></span>
-            <span class="block h-0.5 w-6 bg-primary transition-all duration-300"></span>
-            <span class="block h-0.5 w-6 origin-center bg-primary transition-all duration-300"></span>
-        </button>
+      <!-- Кнопка створення маршруту для комп'ютерної версії -->
+      <a
+        href="planner.html"
+        class="hidden shrink-0 items-center justify-center whitespace-nowrap rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary md:inline-flex"
+      >
+        Створити маршрут
+      </a>
+
+      <!-- Кнопка відкриття мобільного меню -->
+      <button
+        id="menu-btn"
+        type="button"
+        class="flex h-11 w-11 flex-col items-center justify-center gap-[5px] rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:hidden"
+        aria-label="Відкрити меню"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <!-- Три горизонтальні лінії, з яких формується іконка меню -->
+        <span
+          class="block h-0.5 w-6 origin-center bg-primary transition-all duration-300"
+        ></span>
+        <span
+          class="block h-0.5 w-6 bg-primary transition-all duration-300"
+        ></span>
+        <span
+          class="block h-0.5 w-6 origin-center bg-primary transition-all duration-300"
+        ></span>
+      </button>
     </header>
 
     <!-- MOBILE MENU: МОБІЛЬНЕ МЕНЮ -->
     <div
-        id="mobile-menu"
-        class="fixed inset-x-0 bottom-0 top-[68px] z-40 hidden flex-col gap-6 overflow-y-auto bg-white px-[7%] py-8 shadow-lg md:hidden"
-        inert
+      id="mobile-menu"
+      class="fixed inset-x-0 bottom-0 top-[68px] z-40 hidden flex-col gap-6 overflow-y-auto bg-white px-[7%] py-8 shadow-lg md:hidden"
+      inert
     >
-     <!-- Навігаційні посилання мобільного меню -->
-        <nav class="flex flex-col gap-1" aria-label="Мобільна навігація">
-            <a href="#home" class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary">Головна</a>
-            <a href="countries.html" class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary">Країни</a>
-            <a href="#destinations" class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary">Міста</a>
-            <a href="planner.html" class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary">Планер</a>
-            <a href="account.html" class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary">Мій профіль</a>
-        </nav>
-
-        <!-- Кнопка створення маршруту в мобільному меню -->
+      <!-- Навігаційні посилання мобільного меню -->
+      <nav class="flex flex-col gap-1" aria-label="Мобільна навігація">
         <a
-            href="planner.html"
-            class="mobile-link mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-lg bg-primary px-5 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          href="#home"
+          class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary"
+          >Головна</a
         >
-            Створити маршрут
-        </a>
+        <a
+          href="countries.html"
+          class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary"
+          >Країни</a
+        >
+        <a
+          href="#destinations"
+          class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary"
+          >Міста</a
+        >
+        <a
+          href="planner.html"
+          class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary"
+          >Планер</a
+        >
+        <a
+          href="account.html"
+          class="mobile-link rounded-sm border-b border-border py-3 text-base font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary"
+          >Мій профіль</a
+        >
+      </nav>
+
+      <!-- Кнопка створення маршруту в мобільному меню -->
+      <a
+        href="planner.html"
+        class="mobile-link mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-lg bg-primary px-5 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      >
+        Створити маршрут
+      </a>
     </div>
 
-     <!-- Основний вміст сторінки -->
+    <!-- Основний вміст сторінки -->
     <main>
+      <!-- HERO -->
+      <section
+        class="hero relative flex min-h-[700px] items-center"
+        id="home"
+        aria-labelledby="hero-title"
+      >
+        <div class="relative z-10 w-full px-[7%] py-20">
+          <header class="max-w-[520px]">
+            <!-- Невеликий текстовий напис над головним заголовком -->
+            <p
+              class="mb-4 inline-block rounded-md bg-white/30 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[1.5px] text-white"
+            >
+              ТВІЙ ПЕРСОНАЛЬНИЙ ГІД ПО ЄВРОПІ
+            </p>
 
-        <!-- HERO -->
-        <section class="hero relative flex min-h-[700px] items-center" id="home" aria-labelledby="hero-title">
-            <div class="relative z-10 w-full px-[7%] py-20">
-                <header class="max-w-[520px]">
+            <!-- Головний заголовок сторінки -->
+            <h1
+              id="hero-title"
+              class="mb-5 font-heading text-[44px] font-bold leading-[1.15] text-white"
+            >                    <!-- Головний заголовок сторінки (друкується через Typed.js) -->
+            <h1 id="hero-title" class="relative mb-5 font-heading text-[44px] font-bold leading-[1.15] text-white">
+                <!-- Повний текст для пошукових систем і скрінрідерів -->
+                <span class="sr-only">Відкривай Європу не за шаблоном</span>
+                <!-- Невидимий дублікат займає місце, щоб макет не стрибав під час друку -->
+                <span class="invisible block" aria-hidden="true">Відкривай Європу не за шаблоном</span>
+                <!-- Сюди друкується текст -->
+                <span class="absolute inset-0" aria-hidden="true"><span id="typed-title"></span></span>
+            </h1>
+            </h1>
 
-                     <!-- Невеликий текстовий напис над головним заголовком -->
-                    <p class="mb-4 inline-block rounded-md bg-white/30 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[1.5px] text-white">
-                        ТВІЙ ПЕРСОНАЛЬНИЙ ГІД ПО ЄВРОПІ
-                    </p>
+            <!-- Опис під головним заголовком -->
+            <p class="mb-7 text-base leading-relaxed text-white/90">
+              Створи персональний маршрут відповідно до своїх інтересів, часу та
+              бюджету — і знаходь місця, які хочеться запам’ятати.
+            </p>
 
-                     <!-- Головний заголовок сторінки -->
-                    <h1 id="hero-title" class="mb-5 font-heading text-[44px] font-bold leading-[1.15] text-white">
-                        Відкривай Європу не за шаблоном
-                    </h1>
-
-                    <!-- Опис під головним заголовком -->
-                    <p class="mb-7 text-base leading-relaxed text-white/90">
-                        Створи персональний маршрут відповідно до своїх інтересів, часу та
-                        бюджету — і знаходь місця, які хочеться запам’ятати.
-                    </p>
-
-                    <div class="flex flex-wrap items-center gap-4">
-                        <!-- Кнопка переходу до планера -->
-                        <a
-                            href="planner.html"
-                            class="inline-flex items-center justify-center whitespace-nowrap rounded-lg bg-white px-5 py-2.5 text-sm font-medium text-primary transition-colors hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-                        >
-                            Створити маршрут
-                        </a>
-                        
-                    </div>
-
-                </header>
+            <div class="flex flex-wrap items-center gap-4">
+              <!-- Кнопка переходу до планера -->
+              <a
+                href="planner.html"
+                class="inline-flex items-center justify-center whitespace-nowrap rounded-lg bg-white px-5 py-2.5 text-sm font-medium text-primary transition-colors hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              >
+                Створити маршрут
+              </a>
             </div>
-        </section>
+          </header>
+        </div>
+      </section>
 
-        <!-- ПЕРЕВАГИ СЕРВІСУ -->
-        <section class="bg-white px-[7%] py-[72px]" id="features" aria-labelledby="features-title">
-            <header class="mb-10 max-w-[640px]">
+      <!-- ПЕРЕВАГИ СЕРВІСУ -->
+      <section
+        class="bg-white px-[7%] py-[72px]"
+        id="features"
+        aria-labelledby="features-title"
+      >
+        <header class="mb-10 max-w-[640px]">
+          <!-- Невеликий текстовий напис над заголовком секції -->
+          <p
+            class="mb-3 inline-block text-[11px] font-bold uppercase tracking-[1.5px] text-muted"
+          >
+            ПОДОРОЖУЙ ПО-СВОЄМУ
+          </p>
 
-                <!-- Невеликий текстовий напис над заголовком секції -->
-                <p class="mb-3 inline-block text-[11px] font-bold uppercase tracking-[1.5px] text-muted">ПОДОРОЖУЙ ПО-СВОЄМУ</p>
-                
-                <!-- Заголовок секції -->
-                <h2 id="features-title" class="mb-3 font-heading text-[32px] font-bold leading-tight text-primary">
-                    Більше, ніж просто подорож
-                </h2>
+          <!-- Заголовок секції -->
+          <h2
+            id="features-title"
+            class="mb-3 font-heading text-[32px] font-bold leading-tight text-primary"
+          >
+            Більше, ніж просто подорож
+          </h2>
 
-                <!-- Короткий опис -->
-                <p class="m-0 text-sm leading-relaxed text-muted sm:text-base">
-                    Усе необхідне для планування подорожі
+          <!-- Короткий опис -->
+          <p class="m-0 text-sm leading-relaxed text-muted sm:text-base">
+            Усе необхідне для планування подорожі
+          </p>
+        </header>
+
+        <!-- Сітка карток переваг -->
+        <div
+          class="mx-auto grid max-w-[1500px] grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4"
+        >
+          <!-- Перша картка: персональні маршрути -->
+          <article
+            class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md"
+          >
+            <img
+              class="h-[160px] w-full bg-secondary object-cover sm:h-[200px]"
+              src="assets/images/travel_planing.jpg"
+              alt="Персональний маршрут"
+              loading="lazy"
+              decoding="async"
+            />
+            <div
+              class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col"
+            >
+              <span
+                class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                >ПЕРЕВАГА</span
+              >
+              <h3 class="mb-1.5 font-heading text-sm font-bold sm:text-base">
+                Персональні маршрути
+              </h3>
+              <p
+                class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1"
+              >
+                План, який враховує твій темп, інтереси та тривалість подорожі.
+              </p>
+              <p
+                class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]"
+              >
+                ★ 4.8
+              </p>
+            </div>
+          </article>
+
+          <!-- Друга картка: нетуристичні місця -->
+          <article
+            class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md"
+          >
+            <img
+              class="h-[160px] w-full bg-secondary object-cover sm:h-[200px]"
+              src="assets/images/european_street.jpg"
+              alt="Місця поза туристичними маршрутами"
+              loading="lazy"
+              decoding="async"
+            />
+            <div
+              class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col"
+            >
+              <span
+                class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                >ПЕРЕВАГА</span
+              >
+              <h3 class="mb-1.5 font-heading text-sm font-bold sm:text-base">
+                Місця поза туристичними маршрутами
+              </h3>
+              <p
+                class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1"
+              >
+                Локальні квартали, тихі узбережжя й адреси, які знають тільки
+                місцеві.
+              </p>
+              <p
+                class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]"
+              >
+                ★ 4.8
+              </p>
+            </div>
+          </article>
+
+          <!-- Третя картка: планування бюджету -->
+          <article
+            class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md"
+          >
+            <img
+              class="h-[160px] w-full bg-secondary object-cover sm:h-[200px]"
+              src="assets/images/travel_flatlay.jpg"
+              alt="Планування бюджету"
+              loading="lazy"
+              decoding="async"
+            />
+            <div
+              class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col"
+            >
+              <span
+                class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                >ПЕРЕВАГА</span
+              >
+              <h3 class="mb-1.5 font-heading text-sm font-bold sm:text-base">
+                Планування бюджету
+              </h3>
+              <p
+                class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1"
+              >
+                Прозорий розрахунок витрат на дорогу, житло, їжу та враження.
+              </p>
+              <p
+                class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]"
+              >
+                ★ 4.8
+              </p>
+            </div>
+          </article>
+
+          <!-- Четверта картка: зручне планування подорожі -->
+          <article
+            class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md"
+          >
+            <img
+              class="h-[160px] w-full bg-secondary object-cover sm:h-[200px]"
+              src="assets/images/train_station.jpg"
+              alt="Зручне планування подорожі"
+              loading="lazy"
+              decoding="async"
+            />
+            <div
+              class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col"
+            >
+              <span
+                class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                >ПЕРЕВАГА</span
+              >
+              <h3 class="mb-1.5 font-heading text-sm font-bold sm:text-base">
+                Зручне планування подорожі
+              </h3>
+              <p
+                class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1"
+              >
+                Усі дні, переїзди та збережені місця — в одному зрозумілому
+                плані.
+              </p>
+              <p
+                class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]"
+              >
+                ★ 4.8
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Горизонтальний роздільник між секціями -->
+      <div class="mx-auto max-w-7xl px-6">
+        <hr class="border-0 border-t border-[#E5E5E5]" />
+      </div>
+
+      <!-- DESTINATIONS: НАПРЯМКИ ПОДОРОЖЕЙ -->
+      <section
+        class="bg-white px-[7%] py-[72px]"
+        id="destinations"
+        aria-labelledby="destinations-title"
+      >
+        <!-- Заголовок секції -->
+        <header class="mx-auto mb-10 max-w-[640px] text-center">
+          <p
+            class="mb-3 inline-block text-[11px] font-bold uppercase tracking-[1.5px] text-muted"
+          >
+            ВІДКРИВАЙТЕ ЄВРОПУ
+          </p>
+          <h2
+            id="destinations-title"
+            class="mb-3 font-heading text-[28px] font-bold leading-tight text-primary sm:text-[32px]"
+          >
+            Популярні напрямки для подорожей
+          </h2>
+          <p class="m-0 text-sm leading-relaxed text-muted sm:text-base">
+            Шість країн, безліч настроїв — обери точку старту для свого
+            персонального маршруту.
+          </p>
+        </header>
+
+        <!-- Сітка карток країн -->
+        <div
+          class="mx-auto grid max-w-[1500px] grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3"
+        >
+          <!-- Картка Італії -->
+          <a
+            href="italy.html"
+            aria-label="Італія — переглянути країну"
+            class="block rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          >
+            <article
+              class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md"
+            >
+              <img
+                class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]"
+                src="assets/images/italy.jpg"
+                alt="Італія"
+                loading="lazy"
+                decoding="async"
+              />
+              <div
+                class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col"
+              >
+                <span
+                  class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                  >КРАЇНА</span
+                >
+                <h3 class="mb-1 font-heading text-sm font-bold sm:text-[17px]">
+                  Італія
+                </h3>
+                <p
+                  class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1"
+                >
+                  Міста мистецтва, озера й повільні вечори
                 </p>
+                <p
+                  class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]"
+                >
+                  ★ 4.8
+                </p>
+              </div>
+            </article>
+          </a>
 
-            </header>
+          <!-- Картка Франції -->
+          <a
+            href="france.html"
+            aria-label="Франція — переглянути країну"
+            class="block rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          >
+            <article
+              class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md"
+            >
+              <img
+                class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]"
+                src="assets/images/france.jpg"
+                alt="Франція"
+                loading="lazy"
+                decoding="async"
+              />
+              <div
+                class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col"
+              >
+                <span
+                  class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                  >КРАЇНА</span
+                >
+                <h3 class="mb-1 font-heading text-sm font-bold sm:text-[17px]">
+                  Франція
+                </h3>
+                <p
+                  class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1"
+                >
+                  Атлантика, винні дороги та Париж
+                </p>
+                <p
+                  class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]"
+                >
+                  ★ 4.8
+                </p>
+              </div>
+            </article>
+          </a>
 
-            <!-- Сітка карток переваг -->
-            <div class="mx-auto grid max-w-[1500px] grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
+          <!-- Картка Іспанії -->
+          <a
+            href="spain.html"
+            aria-label="Іспанія — переглянути країну"
+            class="block rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          >
+            <article
+              class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md"
+            >
+              <img
+                class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]"
+                src="assets/images/spain.jpg"
+                alt="Іспанія"
+                loading="lazy"
+                decoding="async"
+              />
+              <div
+                class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col"
+              >
+                <span
+                  class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                  >КРАЇНА</span
+                >
+                <h3 class="mb-1 font-heading text-sm font-bold sm:text-[17px]">
+                  Іспанія
+                </h3>
+                <p
+                  class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1"
+                >
+                  Архітектура, узбережжя й нічне життя
+                </p>
+                <p
+                  class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]"
+                >
+                  ★ 4.8
+                </p>
+              </div>
+            </article>
+          </a>
 
-                <!-- Перша картка: персональні маршрути -->
-                <article class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md">
-                    <img class="h-[160px] w-full bg-secondary object-cover sm:h-[200px]" src="assets/images/travel_planing.jpg" alt="Персональний маршрут" loading="lazy" decoding="async">
-                    <div class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col">
-                        <span class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">ПЕРЕВАГА</span>
-                        <h3 class="mb-1.5 font-heading text-sm font-bold sm:text-base">Персональні маршрути</h3>
-                        <p class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1">План, який враховує твій темп, інтереси та тривалість подорожі.</p>
-                        <p class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]">★ 4.8</p>
-                    </div>
-                </article>
+          <!-- Картка Греції -->
+          <a
+            href="greece.html"
+            aria-label="Греція — переглянути країну"
+            class="block rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          >
+            <article
+              class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md"
+            >
+              <img
+                class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]"
+                src="assets/images/greece.jpg"
+                alt="Греція"
+                loading="lazy"
+                decoding="async"
+              />
+              <div
+                class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col"
+              >
+                <span
+                  class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                  >КРАЇНА</span
+                >
+                <h3 class="mb-1 font-heading text-sm font-bold sm:text-[17px]">
+                  Греція
+                </h3>
+                <p
+                  class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1"
+                >
+                  Острови, античність і бірюзове море
+                </p>
+                <p
+                  class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]"
+                >
+                  ★ 4.8
+                </p>
+              </div>
+            </article>
+          </a>
 
-                 <!-- Друга картка: нетуристичні місця -->
-                <article class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md">
-                    <img class="h-[160px] w-full bg-secondary object-cover sm:h-[200px]" src="assets/images/european_street.jpg" alt="Місця поза туристичними маршрутами" loading="lazy" decoding="async">
-                    <div class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col">
-                        <span class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">ПЕРЕВАГА</span>
-                        <h3 class="mb-1.5 font-heading text-sm font-bold sm:text-base">Місця поза туристичними маршрутами</h3>
-                        <p class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1">Локальні квартали, тихі узбережжя й адреси, які знають тільки місцеві.</p>
-                        <p class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]">★ 4.8</p>
-                    </div>
-                </article>
+          <!-- Картка Португалії -->
+          <a
+            href="portugal.html"
+            data-extra
+            aria-label="Португалія — переглянути країну"
+            class="max-lg:hidden block rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          >
+            <article
+              class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md"
+            >
+              <img
+                class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]"
+                src="assets/images/portugal.jpg"
+                alt="Португалія"
+                loading="lazy"
+                decoding="async"
+              />
+              <div
+                class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col"
+              >
+                <span
+                  class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                  >КРАЇНА</span
+                >
+                <h3 class="mb-1 font-heading text-sm font-bold sm:text-[17px]">
+                  Португалія
+                </h3>
+                <p
+                  class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1"
+                >
+                  Океан, азулежу та золоті міста
+                </p>
+                <p
+                  class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]"
+                >
+                  ★ 4.8
+                </p>
+              </div>
+            </article>
+          </a>
 
-                <!-- Третя картка: планування бюджету -->
-                <article class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md">
-                    <img class="h-[160px] w-full bg-secondary object-cover sm:h-[200px]" src="assets/images/travel_flatlay.jpg" alt="Планування бюджету" loading="lazy" decoding="async">
-                    <div class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col">
-                        <span class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">ПЕРЕВАГА</span>
-                        <h3 class="mb-1.5 font-heading text-sm font-bold sm:text-base">Планування бюджету</h3>
-                        <p class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1">Прозорий розрахунок витрат на дорогу, житло, їжу та враження.</p>
-                        <p class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]">★ 4.8</p>
-                    </div>
-                </article>
-
-                <!-- Четверта картка: зручне планування подорожі -->
-                <article class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md">
-                    <img class="h-[160px] w-full bg-secondary object-cover sm:h-[200px]" src="assets/images/train_station.jpg" alt="Зручне планування подорожі" loading="lazy" decoding="async">
-                    <div class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col">
-                        <span class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">ПЕРЕВАГА</span>
-                        <h3 class="mb-1.5 font-heading text-sm font-bold sm:text-base">Зручне планування подорожі</h3>
-                        <p class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1">Усі дні, переїзди та збережені місця — в одному зрозумілому плані.</p>
-                        <p class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]">★ 4.8</p>
-                    </div>
-                </article>
-            </div>
-            
-        </section>
-
-        <!-- Горизонтальний роздільник між секціями -->
-        <div class="mx-auto max-w-7xl px-6">
-            <hr class="border-0 border-t border-[#E5E5E5]">
+          <!-- Картка Німеччини -->
+          <a
+            href="1/germany.html"
+            data-extra
+            aria-label="Німеччина — переглянути країну"
+            class="max-lg:hidden block rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          >
+            <article
+              class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md"
+            >
+              <img
+                class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]"
+                src="assets/images/germany.jpg"
+                alt="Німеччина"
+                loading="lazy"
+                decoding="async"
+              />
+              <div
+                class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col"
+              >
+                <span
+                  class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                  >КРАЇНА</span
+                >
+                <h3 class="mb-1 font-heading text-sm font-bold sm:text-[17px]">
+                  Німеччина
+                </h3>
+                <p
+                  class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1"
+                >
+                  Сучасні міста, ліси та замкові дороги
+                </p>
+                <p
+                  class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]"
+                >
+                  ★ 4.8
+                </p>
+              </div>
+            </article>
+          </a>
         </div>
 
-        <!-- DESTINATIONS: НАПРЯМКИ ПОДОРОЖЕЙ -->
-        <section class="bg-white px-[7%] py-[72px]" id="destinations" aria-labelledby="destinations-title">
+        <!-- Кнопки керування відображенням країн -->
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <a
+            href="countries.html"
+            class="inline-flex items-center justify-center whitespace-nowrap rounded-lg border border-border bg-white px-5 py-2.5 text-sm font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          >
+            Переглянути більше
+          </a>
+        </div>
+      </section>
 
-            <!-- Заголовок секції -->
-            <header class="mx-auto mb-10 max-w-[640px] text-center">
-                <p class="mb-3 inline-block text-[11px] font-bold uppercase tracking-[1.5px] text-muted">ВІДКРИВАЙТЕ ЄВРОПУ</p>
-                <h2 id="destinations-title" class="mb-3 font-heading text-[28px] font-bold leading-tight text-primary sm:text-[32px]">
-                    Популярні напрямки для подорожей
-                </h2>
-                <p class="m-0 text-sm leading-relaxed text-muted sm:text-base">
-                    Шість країн, безліч настроїв — обери точку старту для свого персонального маршруту.
-                </p>
-            </header>
+      <!-- IDEAS: ІДЕЇ ДЛЯ ПОДОРОЖЕЙ (Swiper + Fancybox) -->
+      <section
+        class="bg-secondary px-[7%] py-[72px]"
+        id="ideas"
+        aria-labelledby="ideas-title"
+      >
+        <!-- Заголовок секції -->
+        <header class="mb-10 max-w-[640px]">
+          <p
+            class="mb-3 inline-block text-[11px] font-bold uppercase tracking-[1.5px] text-muted"
+          >
+            ВІДКРИВАЙТЕ ЄВРОПУ
+          </p>
+          <h2
+            id="ideas-title"
+            class="mb-3 font-heading text-[28px] font-bold leading-tight text-primary sm:text-[32px]"
+          >
+            Ідеї для подорожей і цікаві місця Європи
+          </h2>
+          <p class="m-0 text-sm leading-relaxed text-muted sm:text-base">
+            Готові напрямки для натхнення — адаптуй кожну ідею під свій ритм.
+          </p>
+        </header>
 
-            <!-- Сітка карток країн -->
-            <div class="mx-auto grid max-w-[1500px] grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
+        <!-- Карусель ідей (Swiper.js) + перегляд фото (Fancybox) -->
+        <div class="mx-auto max-w-[1500px]">
+          <div class="ideas-wrap">
+            <!-- Стрілка ліворуч -->
+            <button
+              type="button"
+              class="ideas-btn ideas-prev"
+              aria-label="Попередня ідея"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
 
-                <!-- Картка Італії -->
-                <a href="italy.html" aria-label="Італія — переглянути країну" class="block rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">
-                <article class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md">
-                    <img class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]" src="assets/images/italy.jpg" alt="Італія" loading="lazy" decoding="async">
-                    <div class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col">
-                        <span class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">КРАЇНА</span>
-                        <h3 class="mb-1 font-heading text-sm font-bold sm:text-[17px]">Італія</h3>
-                        <p class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1">Міста мистецтва, озера й повільні вечори</p>
-                        <p class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]">★ 4.8</p>
+            <div class="swiper ideas-swiper">
+              <div class="swiper-wrapper">
+                <!-- Ідея 1 -->
+                <div class="swiper-slide">
+                  <article
+                    class="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white"
+                  >
+                    <a
+                      href="assets/images/train.jpg"
+                      data-fancybox="ideas-gallery"
+                      data-caption="Європа нічними потягами"
+                      class="block cursor-zoom-in"
+                    >
+                      <img
+                        class="h-[200px] w-full bg-secondary object-cover sm:h-[250px]"
+                        src="assets/images/train.jpg"
+                        alt="Європа нічними потягами"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </a>
+                    <div class="flex flex-1 flex-col p-4 sm:p-[18px]">
+                      <span
+                        class="mb-2 inline-block self-start rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                        >ДОБІРКА</span
+                      >
+                      <h3 class="mb-1 font-heading text-base font-bold">
+                        Європа нічними потягами
+                      </h3>
+                      <p class="m-0 flex-1 text-[13px] text-muted">
+                        Прага → Відень → Любляна · 8 днів
+                      </p>
+                      <p class="mt-3 text-[13px] font-semibold text-primary">
+                        ★ 4.8
+                      </p>
                     </div>
-                </article>
-                </a>
+                  </article>
+                </div>
 
-                <!-- Картка Франції -->
-                <a href="france.html" aria-label="Франція — переглянути країну" class="block rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">
-                <article class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md">
-                    <img class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]" src="assets/images/france.jpg" alt="Франція" loading="lazy" decoding="async">
-                    <div class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col">
-                        
-                        <span class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">КРАЇНА</span>
-                        <h3 class="mb-1 font-heading text-sm font-bold sm:text-[17px]">Франція</h3>
-                        <p class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1">Атлантика, винні дороги та Париж</p>
-                        <p class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]">★ 4.8</p>
+                <!-- Ідея 2 -->
+                <div class="swiper-slide">
+                  <article
+                    class="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white"
+                  >
+                    <a
+                      href="assets/images/sea_portugal.jpg"
+                      data-fancybox="ideas-gallery"
+                      data-caption="Тихі узбережжя Португалії"
+                      class="block cursor-zoom-in"
+                    >
+                      <img
+                        class="h-[200px] w-full bg-secondary object-cover sm:h-[250px]"
+                        src="assets/images/sea_portugal.jpg"
+                        alt="Тихі узбережжя Португалії"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </a>
+                    <div class="flex flex-1 flex-col p-4 sm:p-[18px]">
+                      <span
+                        class="mb-2 inline-block self-start rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                        >ДОБІРКА</span
+                      >
+                      <h3 class="mb-1 font-heading text-base font-bold">
+                        Тихі узбережжя Португалії
+                      </h3>
+                      <p class="m-0 flex-1 text-[13px] text-muted">
+                        Алгарве й Атлантика · 6 днів
+                      </p>
+                      <p class="mt-3 text-[13px] font-semibold text-primary">
+                        ★ 4.8
+                      </p>
                     </div>
-                </article>
-                </a>
+                  </article>
+                </div>
 
-                <!-- Картка Іспанії -->
-                <a href="spain.html" aria-label="Іспанія — переглянути країну" class="block rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">
-                <article class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md">
-                    <img class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]" src="assets/images/spain.jpg" alt="Іспанія" loading="lazy" decoding="async">
-                    <div class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col">
-                        <span class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">КРАЇНА</span>
-                        <h3 class="mb-1 font-heading text-sm font-bold sm:text-[17px]">Іспанія</h3>
-                        <p class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1">Архітектура, узбережжя й нічне життя</p>
-                        <p class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]">★ 4.8</p>
+                <!-- Ідея 3 -->
+                <div class="swiper-slide">
+                  <article
+                    class="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white"
+                  >
+                    <a
+                      href="assets/images/dinner.jpg"
+                      data-fancybox="ideas-gallery"
+                      data-caption="Малі міста й велика кухня"
+                      class="block cursor-zoom-in"
+                    >
+                      <img
+                        class="h-[200px] w-full bg-secondary object-cover sm:h-[250px]"
+                        src="assets/images/dinner.jpg"
+                        alt="Малі міста й велика кухня"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </a>
+                    <div class="flex flex-1 flex-col p-4 sm:p-[18px]">
+                      <span
+                        class="mb-2 inline-block self-start rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                        >ДОБІРКА</span
+                      >
+                      <h3 class="mb-1 font-heading text-base font-bold">
+                        Малі міста й велика кухня
+                      </h3>
+                      <p class="m-0 flex-1 text-[13px] text-muted">
+                        Болонья → Парма → Модена · 5 днів
+                      </p>
+                      <p class="mt-3 text-[13px] font-semibold text-primary">
+                        ★ 4.8
+                      </p>
                     </div>
-                </article>
-                </a>
+                  </article>
+                </div>
 
-                <!-- Картка Греції -->
-                <a href="greece.html" aria-label="Греція — переглянути країну" class="block rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">
-                <article class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md">
-                    <img class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]" src="assets/images/greece.jpg" alt="Греція" loading="lazy" decoding="async">
-                    <div class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col">
-                        <span class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">КРАЇНА</span>
-                        <h3 class="mb-1 font-heading text-sm font-bold sm:text-[17px]">Греція</h3>
-                        <p class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1">Острови, античність і бірюзове море</p>
-                        <p class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]">★ 4.8</p>
+                <!-- Ідея 4 (фото-заглушка) -->
+                <div class="swiper-slide">
+                  <article
+                    class="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white"
+                  >
+                    <a
+                      href="assets/images/alp_hiking.jpg"
+                      data-fancybox="ideas-gallery"
+                      data-caption="Альпійські маршрути"
+                      class="block cursor-zoom-in"
+                    >
+                      <img
+                        class="h-[200px] w-full bg-secondary object-cover sm:h-[250px]"
+                        src="assets/images/alp_hiking.jpg"
+                        alt="Альпійські маршрути"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </a>
+                    <div class="flex flex-1 flex-col p-4 sm:p-[18px]">
+                      <span
+                        class="mb-2 inline-block self-start rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                        >ДОБІРКА</span
+                      >
+                      <h3 class="mb-1 font-heading text-base font-bold">
+                        Альпійські маршрути
+                      </h3>
+                      <p class="m-0 flex-1 text-[13px] text-muted">
+                        Інсбрук → Зальцбург → Больцано · 7 днів
+                      </p>
+                      <p class="mt-3 text-[13px] font-semibold text-primary">
+                        ★ 4.8
+                      </p>
                     </div>
-                </article>
-                </a>
+                  </article>
+                </div>
 
-                <!-- Картка Португалії -->
-                <a href="portugal.html" data-extra aria-label="Португалія — переглянути країну" class="max-lg:hidden block rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">
-                <article class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md">
-                    <img class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]" src="assets/images/portugal.jpg" alt="Португалія" loading="lazy" decoding="async">
-                    <div class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col">
-                        <span class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">КРАЇНА</span>
-                        <h3 class="mb-1 font-heading text-sm font-bold sm:text-[17px]">Португалія</h3>
-                        <p class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1">Океан, азулежу та золоті міста</p>
-                        <p class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]">★ 4.8</p>
+                <!-- Ідея 5 (фото-заглушка) -->
+                <div class="swiper-slide">
+                  <article
+                    class="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white"
+                  >
+                    <a
+                      href="assets/images/islands_greece.jpg"
+                      data-fancybox="ideas-gallery"
+                      data-caption="Острови Греції"
+                      class="block cursor-zoom-in"
+                    >
+                      <img
+                        class="h-[200px] w-full bg-secondary object-cover sm:h-[250px]"
+                        src="assets/images/islands_greece.jpg"
+                        alt="Острови Греції"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </a>
+                    <div class="flex flex-1 flex-col p-4 sm:p-[18px]">
+                      <span
+                        class="mb-2 inline-block self-start rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                        >ДОБІРКА</span
+                      >
+                      <h3 class="mb-1 font-heading text-base font-bold">
+                        Острови Греції
+                      </h3>
+                      <p class="m-0 flex-1 text-[13px] text-muted">
+                        Санторіні → Міконос → Парос · 9 днів
+                      </p>
+                      <p class="mt-3 text-[13px] font-semibold text-primary">
+                        ★ 4.8
+                      </p>
                     </div>
-                </article>
-                </a>
+                  </article>
+                </div>
 
-                <!-- Картка Німеччини -->
-                <a href="1/germany.html" data-extra aria-label="Німеччина — переглянути країну" class="max-lg:hidden block rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">
-                <article class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md">
-                    <img class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]" src="assets/images/germany.jpg" alt="Німеччина" loading="lazy" decoding="async">
-                    <div class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col">
-                        <span class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">КРАЇНА</span>
-                        <h3 class="mb-1 font-heading text-sm font-bold sm:text-[17px]">Німеччина</h3>
-                        <p class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1">Сучасні міста, ліси та замкові дороги</p>
-                        <p class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]">★ 4.8</p>
+                <!-- Ідея 6 (фото-заглушка) -->
+                <div class="swiper-slide">
+                  <article
+                    class="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white"
+                  >
+                    <a
+                      href="assets/images/capitals_baltics.jpg"
+                      data-fancybox="ideas-gallery"
+                      data-caption="Столиці Балтії"
+                      class="block cursor-zoom-in"
+                    >
+                      <img
+                        class="h-[200px] w-full bg-secondary object-cover sm:h-[250px]"
+                        src="assets/images/capitals_baltics.jpg"
+                        alt="Столиці Балтії"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </a>
+                    <div class="flex flex-1 flex-col p-4 sm:p-[18px]">
+                      <span
+                        class="mb-2 inline-block self-start rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                        >ДОБІРКА</span
+                      >
+                      <h3 class="mb-1 font-heading text-base font-bold">
+                        Столиці Балтії
+                      </h3>
+                      <p class="m-0 flex-1 text-[13px] text-muted">
+                        Таллінн → Рига → Вільнюс · 6 днів
+                      </p>
+                      <p class="mt-3 text-[13px] font-semibold text-primary">
+                        ★ 4.8
+                      </p>
                     </div>
-                </article>
-                </a>
+                  </article>
+                </div>
+              </div>
             </div>
 
-            <!-- Кнопки керування відображенням країн -->
-            <div class="mt-8 flex flex-wrap justify-center gap-3">
-                <a href="countries.html"
-                class="inline-flex items-center justify-center whitespace-nowrap rounded-lg border border-border bg-white px-5 py-2.5 text-sm font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">
-                    Переглянути більше
-                </a>
+            <!-- Стрілка праворуч -->
+            <button
+              type="button"
+              class="ideas-btn ideas-next"
+              aria-label="Наступна ідея"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Крапки (поза ideas-wrap) -->
+          <div class="ideas-pagination swiper-pagination"></div>
+        </div>
+      </section>
+
+      <!-- REVIEWS: ВІДГУКИ МАНДРІВНИКІВ (Swiper) -->
+      <section
+        class="bg-white px-[7%] py-[72px]"
+        id="reviews"
+        aria-labelledby="reviews-title"
+      >
+        <!-- Заголовок секції -->
+        <header class="mx-auto mb-10 max-w-[640px] text-center">
+          <p
+            class="mb-3 inline-block text-[11px] font-bold uppercase tracking-[1.5px] text-muted"
+          >
+            ВІДКРИВАЙТЕ ЄВРОПУ
+          </p>
+          <h2
+            id="reviews-title"
+            class="mb-3 font-heading text-[28px] font-bold leading-tight text-primary sm:text-[32px]"
+          >
+            Подорожі, які запам’яталися
+          </h2>
+          <p class="m-0 text-sm leading-relaxed text-muted sm:text-base">
+            Мандрівники про маршрути, що відчувалися особистими від першого дня.
+          </p>
+        </header>
+
+        <!-- Слайдер відгуків (Swiper.js) -->
+        <div class="mx-auto max-w-[1500px]">
+          <!-- Обгортка: стрілки позиціюються відносно неї -->
+          <div class="reviews-wrap">
+            <!-- Стрілка ліворуч -->
+            <button
+              type="button"
+              class="reviews-btn reviews-prev"
+              aria-label="Попередній відгук"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+
+            <!-- Слайдер -->
+            <div class="swiper reviews-swiper">
+              <div class="swiper-wrapper">
+                <!-- Слайд 1 -->
+                <div class="swiper-slide">
+                  <article
+                    class="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white"
+                  >
+                    <img
+                      class="h-[200px] w-full bg-secondary object-cover sm:h-[250px]"
+                      src="assets/images/maria_koval.jpg"
+                      alt="Марія Коваль"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="flex flex-1 flex-col p-4 sm:p-[18px]">
+                      <span
+                        class="mb-2 inline-block self-start rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                        >ВІДГУК</span
+                      >
+                      <h3 class="mb-1.5 font-heading text-base font-bold">
+                        Марія Коваль
+                      </h3>
+                      <p class="m-0 flex-1 text-[13px] leading-snug text-muted">
+                        «Маршрут вийшов дуже наш: ранкові музеї, маленькі
+                        кав’ярні й жодного поспіху». — Лісабон і Сінтра
+                      </p>
+                      <p class="mt-3 text-[13px] font-semibold text-primary">
+                        ★ 4.8
+                      </p>
+                    </div>
+                  </article>
+                </div>
+
+                <!-- Слайд 2 -->
+                <div class="swiper-slide">
+                  <article
+                    class="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white"
+                  >
+                    <img
+                      class="h-[200px] w-full bg-secondary object-cover sm:h-[250px]"
+                      src="assets/images/andriy_melnyk.jpg"
+                      alt="Андрій Мельник"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="flex flex-1 flex-col p-4 sm:p-[18px]">
+                      <span
+                        class="mb-2 inline-block self-start rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                        >ВІДГУК</span
+                      >
+                      <h3 class="mb-1.5 font-heading text-base font-bold">
+                        Андрій Мельник
+                      </h3>
+                      <p class="m-0 flex-1 text-[13px] leading-snug text-muted">
+                        «Подорож Північною Італією перевершила всі очікування.
+                        Маршрут був продуманий до дрібниць». — Північна Італія
+                      </p>
+                      <p class="mt-3 text-[13px] font-semibold text-primary">
+                        ★ 4.8
+                      </p>
+                    </div>
+                  </article>
+                </div>
+
+                <!-- Слайд 3 -->
+                <div class="swiper-slide">
+                  <article
+                    class="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white"
+                  >
+                    <img
+                      class="h-[200px] w-full bg-secondary object-cover sm:h-[250px]"
+                      src="assets/images/iryna_savchuk.jpg"
+                      alt="Ірина Савчук"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="flex flex-1 flex-col p-4 sm:p-[18px]">
+                      <span
+                        class="mb-2 inline-block self-start rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                        >ВІДГУК</span
+                      >
+                      <h3 class="mb-1.5 font-heading text-base font-bold">
+                        Ірина Савчук
+                      </h3>
+                      <p class="m-0 flex-1 text-[13px] leading-snug text-muted">
+                        «Усе було продумано до найменших деталей: зручні
+                        переїзди, затишне житло та цікаві місця». — Баварія
+                      </p>
+                      <p class="mt-3 text-[13px] font-semibold text-primary">
+                        ★ 4.8
+                      </p>
+                    </div>
+                  </article>
+                </div>
+
+                <!-- Слайд 4 (фото-заглушка) -->
+                <div class="swiper-slide">
+                  <article
+                    class="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white"
+                  >
+                    <img
+                      class="h-[200px] w-full bg-secondary object-cover sm:h-[250px]"
+                      src="assets/images/oleksiy_bondar.jpg"
+                      alt="Олексій Бондар"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="flex flex-1 flex-col p-4 sm:p-[18px]">
+                      <span
+                        class="mb-2 inline-block self-start rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                        >ВІДГУК</span
+                      >
+                      <h3 class="mb-1.5 font-heading text-base font-bold">
+                        Олексій Бондар
+                      </h3>
+                      <p class="m-0 flex-1 text-[13px] leading-snug text-muted">
+                        «Нічні потяги між містами зекономили нам дні та гроші.
+                        Планер усе розклав по поличках». — Прага і Відень
+                      </p>
+                      <p class="mt-3 text-[13px] font-semibold text-primary">
+                        ★ 4.8
+                      </p>
+                    </div>
+                  </article>
+                </div>
+
+                <!-- Слайд 5 (фото-заглушка) -->
+                <div class="swiper-slide">
+                  <article
+                    class="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-white"
+                  >
+                    <img
+                      class="h-[200px] w-full bg-secondary object-cover sm:h-[250px]"
+                      src="assets/images/sophia_lisenko.jpg"
+                      alt="Софія Лисенко"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="flex flex-1 flex-col p-4 sm:p-[18px]">
+                      <span
+                        class="mb-2 inline-block self-start rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted"
+                        >ВІДГУК</span
+                      >
+                      <h3 class="mb-1.5 font-heading text-base font-bold">
+                        Софія Лисенко
+                      </h3>
+                      <p class="m-0 flex-1 text-[13px] leading-snug text-muted">
+                        «Острови Греції без поспіху: кожен день мав свій ритм і
+                        свою бухту». — Греція, острови
+                      </p>
+                      <p class="mt-3 text-[13px] font-semibold text-primary">
+                        ★ 4.8
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </div>
             </div>
-        </section>
 
-        <!-- IDEAS: ІДЕЇ ДЛЯ ПОДОРОЖЕЙ -->
-        <section class="bg-secondary px-[7%] py-[72px]" id="ideas" aria-labelledby="ideas-title">
+            <!-- Стрілка праворуч -->
+            <button
+              type="button"
+              class="reviews-btn reviews-next"
+              aria-label="Наступний відгук"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+          </div>
 
-            <!-- Заголовок секції -->
-            <header class="mb-10 max-w-[640px]">
-                <p class="mb-3 inline-block text-[11px] font-bold uppercase tracking-[1.5px] text-muted">ВІДКРИВАЙТЕ ЄВРОПУ</p>
-                <h2 id="ideas-title" class="mb-3 font-heading text-[28px] font-bold leading-tight text-primary sm:text-[32px]">
-                    Ідеї для подорожей і цікаві місця Європи
-                </h2>
-                <p class="m-0 text-sm leading-relaxed text-muted sm:text-base">
-                    Готові напрямки для натхнення — адаптуй кожну ідею під свій ритм.
-                </p>
-            </header>
+          <!-- Крапки: на якому ви слайді (поза reviews-wrap) -->
+          <div class="reviews-pagination swiper-pagination"></div>
+        </div>
+      </section>
 
-            <!-- Сітка карток із готовими ідеями -->
-            <div class="mx-auto grid max-w-[1500px] grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
-
-                <!-- Перша ідея: подорож нічними потягами -->
-                <article class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md">
-                    <img class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]" src="assets/images/train.jpg" alt="Європа нічними потягами" loading="lazy" decoding="async">
-                    <div class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col">
-                        <span class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">ДОБІРКА</span>
-                        <h3 class="mb-1 font-heading text-sm font-bold sm:text-base">Європа нічними потягами</h3>
-                        <p class="m-0 text-xs text-muted sm:text-[13px] max-lg:flex-1">Прага → Відень → Любляна · 8 днів</p>
-                        <p class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]">★ 4.8</p>
-                    </div>
-                </article>
-
-                <!-- Друга ідея: узбережжя Португалії -->
-                <article class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md">
-                    <img class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]" src="assets/images/sea_portugal.jpg" alt="Тихі узбережжя Португалії" loading="lazy" decoding="async">
-                    <div class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col">
-                        <span class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">ДОБІРКА</span>
-                        <h3 class="mb-1 font-heading text-sm font-bold sm:text-base">Тихі узбережжя Португалії</h3>
-                        <p class="m-0 text-xs text-muted sm:text-[13px] max-lg:flex-1">Алгарве й Атлантика · 6 днів</p>
-                        <p class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]">★ 4.8</p>
-                    </div>
-                </article>
-
-                <!-- Третя ідея: малі міста й велика кухня -->
-                <article data-extra class="max-lg:hidden max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md">
-                    <img class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]" src="assets/images/dinner.jpg" alt="Малі міста й велика кухня" loading="lazy" decoding="async">
-                    <div class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col">
-                        <span class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">ДОБІРКА</span>
-                        <h3 class="mb-1 font-heading text-sm font-bold sm:text-base">Малі міста й велика кухня</h3>
-                        <p class="m-0 text-xs text-muted sm:text-[13px] max-lg:flex-1">Болонья → Парма → Модена · 5 днів</p>
-                        <p class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]">★ 4.8</p>
-                    </div>
-                </article>
-            </div>
-
-            <!-- Кнопка показу додаткових ідей на мобільних і планшетних екранах -->
-            <div class="mt-8 flex justify-center lg:hidden">
-                <button
-                    type="button"
-                    data-more-button
-                    class="inline-flex items-center justify-center whitespace-nowrap rounded-lg border border-border bg-white px-5 py-2.5 text-sm font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-                >
-                    Переглянути більше
-                </button>
-            </div>
-        </section>
-
-        <!-- REVIEWS: ВІДГУКИ МАНДРІВНИКІВ -->
-        <section class="bg-white px-[7%] py-[72px]" id="reviews" aria-labelledby="reviews-title">
-
-            <!-- Заголовок секції -->
-            <header class="mx-auto mb-10 max-w-[640px] text-center">
-                <p class="mb-3 inline-block text-[11px] font-bold uppercase tracking-[1.5px] text-muted">ВІДКРИВАЙТЕ ЄВРОПУ</p>
-                <h2 id="reviews-title" class="mb-3 font-heading text-[28px] font-bold leading-tight text-primary sm:text-[32px]">
-                    Подорожі, які запам’яталися
-                </h2>
-                <p class="m-0 text-sm leading-relaxed text-muted sm:text-base">
-                    Мандрівники про маршрути, що відчувалися особистими від першого дня.
-                </p>
-            </header>
-
-            <!-- Сітка карток із відгуками -->
-            <div class="mx-auto grid max-w-[1500px] grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
-                <article class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md">
-                    <img class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]" src="assets/images/maria_koval.jpg" alt="Марія Коваль" loading="lazy" decoding="async">
-                    <div class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col">
-                        <span class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">ВІДГУК</span>
-                        <h3 class="mb-1.5 font-heading text-sm font-bold sm:text-base">Марія Коваль</h3>
-                        <p class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1">«Маршрут вийшов дуже наш: ранкові музеї, маленькі кав’ярні й жодного поспіху». — Лісабон і Сінтра</p>
-                        <p class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]">★ 4.8</p>
-                    </div>
-                </article>
-
-                <article class="max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md">
-                    <img class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]" src="assets/images/andriy_melnyk.jpg" alt="Андрій Мельник" loading="lazy" decoding="async">
-                    <div class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col">
-                        <span class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">ВІДГУК</span>
-                        <h3 class="mb-1.5 font-heading text-sm font-bold sm:text-base">Андрій Мельник</h3>
-                        <p class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1">«Подорож Північною Італією перевершила всі очікування. Маршрут був продуманий до дрібниць». — Північна Італія</p>
-                        <p class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]">★ 4.8</p>
-                    </div>
-                </article>
-
-                <article data-extra class="max-lg:hidden max-lg:h-full max-lg:[&:not(.hidden)]:flex max-lg:flex-col overflow-hidden rounded-xl border border-border bg-white transition-shadow duration-300 hover:shadow-md">
-                    <img class="h-[160px] w-full bg-secondary object-cover sm:h-[250px]" src="assets/images/iryna_savchuk.jpg" alt="Ірина Савчук" loading="lazy" decoding="async">
-                    <div class="p-3 sm:p-[18px] max-lg:flex max-lg:flex-1 max-lg:flex-col">
-                        <span class="mb-2 max-lg:self-start inline-block rounded bg-secondary px-2 py-1 text-[10px] font-semibold tracking-[1.5px] text-muted">ВІДГУК</span>
-                        <h3 class="mb-1.5 font-heading text-sm font-bold sm:text-base">Ірина Савчук</h3>
-                        <p class="m-0 text-xs leading-snug text-muted sm:text-[13px] max-lg:flex-1">«Усе було продумано до найменших деталей: зручні переїзди, затишне житло та цікаві місця». — Баварія</p>
-                        <p class="mt-2 text-xs font-semibold text-primary sm:mt-3 sm:text-[13px]">★ 4.8</p>
-                    </div>
-                </article>
-            </div>
-
-            <!-- Кнопка показу додаткових відгуків на невеликих екранах -->
-            <div class="mt-8 flex justify-center lg:hidden">
-                <button
-                    type="button"
-                    data-more-button
-                    class="inline-flex items-center justify-center whitespace-nowrap rounded-lg border border-border bg-white px-5 py-2.5 text-sm font-medium text-primary transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-                >
-                    Переглянути більше
-                </button>
-            </div>
-        </section>
-
-        <!-- PLANNER: ЗАКЛИК ДО ДІЇ -->
-        <section class="bg-primary px-[7%] py-20 text-center" id="planner" aria-labelledby="planner-title">
-            <header class="mx-auto max-w-[560px]">
-                <p class="mb-4 inline-block rounded-md bg-white/30 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[1.5px] text-white">
-                    ТВІЙ МАРШРУТ · ТВОЇ ПРАВИЛА
-                </p>
-                <h2 id="planner-title" class="mb-4 font-heading text-[24px] font-bold text-white sm:text-[36px]">
-                    Твоя наступна подорож починається тут
-                </h2>
-                <a
-                    href="planner.html"
-                    class="inline-flex items-center justify-center whitespace-nowrap rounded-lg bg-white/30 px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-white/60 hover:text-primary active:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-                >
-                    Почати планування
-                </a>
-            </header>
-        </section>
+      <!-- PLANNER: ЗАКЛИК ДО ДІЇ -->
+      <section
+        class="bg-primary px-[7%] py-20 text-center"
+        id="planner"
+        aria-labelledby="planner-title"
+      >
+        <header class="mx-auto max-w-[560px]">
+          <p
+            class="mb-4 inline-block rounded-md bg-white/30 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[1.5px] text-white"
+          >
+            ТВІЙ МАРШРУТ · ТВОЇ ПРАВИЛА
+          </p>
+          <h2
+            id="planner-title"
+            class="mb-4 font-heading text-[24px] font-bold text-white sm:text-[36px]"
+          >
+            Твоя наступна подорож починається тут
+          </h2>
+          <a
+            href="planner.html"
+            class="inline-flex items-center justify-center whitespace-nowrap rounded-lg bg-white/30 px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-white/60 hover:text-primary active:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          >
+            Почати планування
+          </a>
+        </header>
+      </section>
     </main>
 
     <!-- FOOTER: ПІДВАЛ САЙТУ -->
     <footer class="bg-primary px-[7%] pb-8 pt-12 text-white" id="about">
-        <div class="mb-10 flex flex-wrap justify-between gap-12">
+      <div class="mb-10 flex flex-wrap justify-between gap-12">
+        <!-- Блок із логотипом і соціальними мережами -->
+        <div class="max-w-[240px]">
+          <a
+            href="#home"
+            aria-label="Via Europe — на головну"
+            class="rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          >
+            <img
+              src="assets/icons/logo2.svg"
+              alt="Via Europe"
+              class="block h-auto w-[140px] object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+          <p class="mb-5 mt-3 text-sm text-text-light">
+            Продумані подорожі Європою.
+          </p>
 
-            <!-- Блок із логотипом і соціальними мережами -->
-            <div class="max-w-[240px]">
-                <a href="#home" aria-label="Via Europe — на головну" class="rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
-                    <img src="assets/icons/logo2.svg" alt="Via Europe" class="block h-auto w-[140px] object-contain" loading="lazy" decoding="async">
-                </a>
-                <p class="mb-5 mt-3 text-sm text-text-light">Продумані подорожі Європою.</p>
-
-                <div class="flex gap-3">
-                    <a href="https://www.instagram.com/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"
-                       class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-text-light transition-colors hover:border-white/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
-                        <i class="fa-brands fa-instagram text-[1.1rem]" aria-hidden="true"></i>
-                    </a>
-                    <a href="https://www.facebook.com/" aria-label="Facebook" target="_blank" rel="noopener noreferrer"
-                       class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-text-light transition-colors hover:border-white/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
-                        <i class="fa-brands fa-facebook-f text-[1.1rem]" aria-hidden="true"></i>
-                    </a>
-                    <a href="https://www.youtube.com/" aria-label="YouTube" target="_blank" rel="noopener noreferrer"
-                       class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-text-light transition-colors hover:border-white/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
-                        <i class="fa-brands fa-youtube text-[1.1rem]" aria-hidden="true"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Навігаційні блоки футера -->
-            <nav class="flex flex-wrap gap-10 sm:gap-16" aria-label="Посилання у футері">
-                <div>
-                    <h2 class="mb-3.5 text-[13px] font-semibold text-white">Подорожі</h2>
-                    <ul class="space-y-2.5">
-                        <li><a href="#destinations" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Напрямки</a></li>
-                        <li><a href="planner.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Планер</a></li>
-                        <li><a href="#destinations" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Міста</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h2 class="mb-3.5 text-[13px] font-semibold text-white">Via Europe</h2>
-                    <ul class="space-y-2.5">
-                        <li><a href="about.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Про нас</a></li>
-                        <li><a href="planner.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Планер</a></li>
-                        <li><a href="account.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Кабінет</a></li>
-                        <li><a href="contacts.html" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Контакти</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h2 class="mb-3.5 text-[13px] font-semibold text-white">Інформація</h2>
-                    <ul class="space-y-2.5">
-                        <li><a href="#ideas" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Поради</a></li>
-                        <li><a href="#about" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Політика</a></li>
-                        <li><a href="#about" class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Умови</a></li>
-                    </ul>
-                </div>
-            </nav>
+          <div class="flex gap-3">
+            <a
+              href="https://www.instagram.com/"
+              aria-label="Instagram"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-text-light transition-colors hover:border-white/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              <i
+                class="fa-brands fa-instagram text-[1.1rem]"
+                aria-hidden="true"
+              ></i>
+            </a>
+            <a
+              href="https://www.facebook.com/"
+              aria-label="Facebook"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-text-light transition-colors hover:border-white/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              <i
+                class="fa-brands fa-facebook-f text-[1.1rem]"
+                aria-hidden="true"
+              ></i>
+            </a>
+            <a
+              href="https://www.youtube.com/"
+              aria-label="YouTube"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-text-light transition-colors hover:border-white/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              <i
+                class="fa-brands fa-youtube text-[1.1rem]"
+                aria-hidden="true"
+              ></i>
+            </a>
+          </div>
         </div>
 
-         <!-- Нижня частина футера з інформацією про авторські права -->
-        <p class="m-0 border-t border-white/10 pt-6 text-xs text-text-light">
-            © 2026 Via Europe. Усі права захищені.
-        </p>
+        <!-- Навігаційні блоки футера -->
+        <nav
+          class="flex flex-wrap gap-10 sm:gap-16"
+          aria-label="Посилання у футері"
+        >
+          <div>
+            <h2 class="mb-3.5 text-[13px] font-semibold text-white">
+              Подорожі
+            </h2>
+            <ul class="space-y-2.5">
+              <li>
+                <a
+                  href="#destinations"
+                  class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >Напрямки</a
+                >
+              </li>
+              <li>
+                <a
+                  href="planner.html"
+                  class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >Планер</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#destinations"
+                  class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >Міста</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 class="mb-3.5 text-[13px] font-semibold text-white">
+              Via Europe
+            </h2>
+            <ul class="space-y-2.5">
+              <li>
+                <a
+                  href="about.html"
+                  class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >Про нас</a
+                >
+              </li>
+              <li>
+                <a
+                  href="planner.html"
+                  class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >Планер</a
+                >
+              </li>
+              <li>
+                <a
+                  href="account.html"
+                  class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >Кабінет</a
+                >
+              </li>
+              <li>
+                <a
+                  href="contacts.html"
+                  class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >Контакти</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 class="mb-3.5 text-[13px] font-semibold text-white">
+              Інформація
+            </h2>
+            <ul class="space-y-2.5">
+              <li>
+                <a
+                  href="#ideas"
+                  class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >Поради</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >Політика</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  class="rounded-sm text-[13px] text-text-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >Умови</a
+                >
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Нижня частина футера з інформацією про авторські права -->
+      <p class="m-0 border-t border-white/10 pt-6 text-xs text-text-light">
+        © 2026 Via Europe. Усі права захищені.
+      </p>
     </footer>
 
     <!-- Mobile menu script -->
     <script>
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const spans = menuBtn.querySelectorAll('span');
+      const menuBtn = document.getElementById('menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const spans = menuBtn.querySelectorAll('span');
 
-        function closeMenu() {
-            mobileMenu.classList.add('hidden');
-            mobileMenu.classList.remove('flex');
-            mobileMenu.inert = true;
+      function closeMenu() {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+        mobileMenu.inert = true;
 
-            menuBtn.setAttribute('aria-expanded', 'false');
-            menuBtn.setAttribute('aria-label', 'Відкрити меню');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.setAttribute('aria-label', 'Відкрити меню');
 
-            spans[0].classList.remove('rotate-45', 'translate-y-[7px]');
-            spans[1].classList.remove('opacity-0');
-            spans[2].classList.remove('-rotate-45', '-translate-y-[7px]');
+        spans[0].classList.remove('rotate-45', 'translate-y-[7px]');
+        spans[1].classList.remove('opacity-0');
+        spans[2].classList.remove('-rotate-45', '-translate-y-[7px]');
+      }
+
+      function openMenu() {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('flex');
+        mobileMenu.inert = false;
+
+        menuBtn.setAttribute('aria-expanded', 'true');
+        menuBtn.setAttribute('aria-label', 'Закрити меню');
+
+        spans[0].classList.add('rotate-45', 'translate-y-[7px]');
+        spans[1].classList.add('opacity-0');
+        spans[2].classList.add('-rotate-45', '-translate-y-[7px]');
+      }
+
+      menuBtn.addEventListener('click', () => {
+        const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
+
+        if (isOpen) {
+          closeMenu();
+        } else {
+          openMenu();
         }
+      });
 
-        function openMenu() {
-            mobileMenu.classList.remove('hidden');
-            mobileMenu.classList.add('flex');
-            mobileMenu.inert = false;
+      document.querySelectorAll('.mobile-link').forEach((link) => {
+        link.addEventListener('click', closeMenu);
+      });
 
-            menuBtn.setAttribute('aria-expanded', 'true');
-            menuBtn.setAttribute('aria-label', 'Закрити меню');
+      document.addEventListener('keydown', (event) => {
+        const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
 
-            spans[0].classList.add('rotate-45', 'translate-y-[7px]');
-            spans[1].classList.add('opacity-0');
-            spans[2].classList.add('-rotate-45', '-translate-y-[7px]');
+        if (event.key === 'Escape' && isOpen) {
+          closeMenu();
+          menuBtn.focus();
         }
+      });
 
-        menuBtn.addEventListener('click', () => {
-            const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
-
-            if (isOpen) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
-        });
-
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', closeMenu);
-        });
-
-        document.addEventListener('keydown', event => {
-            const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
-
-            if (event.key === 'Escape' && isOpen) {
-                closeMenu();
-                menuBtn.focus();
-            }
-        });
-
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768) {
-                closeMenu();
-            }
-        });
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) {
+          closeMenu();
+        }
+      });
     </script>
 
     <!-- «Переглянути більше» / «Показати менше» -->
     <script>
-        document.querySelectorAll('[data-extra]').forEach(card => {
-            card.dataset.hideClass = ['lg:hidden', 'max-lg:hidden', 'hidden'].find(c => card.classList.contains(c));
+      document.querySelectorAll('[data-extra]').forEach((card) => {
+        card.dataset.hideClass = ['lg:hidden', 'max-lg:hidden', 'hidden'].find(
+          (c) => card.classList.contains(c)
+        );
+      });
+
+      document.querySelectorAll('[data-more-button]').forEach((button) => {
+        const section = button.closest('section');
+        const moreText = button.textContent.trim();
+        let expanded = false;
+
+        button.setAttribute('aria-expanded', 'false');
+
+        button.addEventListener('click', () => {
+          expanded = !expanded;
+
+          section.querySelectorAll('[data-extra]').forEach((card) => {
+            card.classList.toggle(card.dataset.hideClass, !expanded);
+          });
+
+          button.textContent = expanded ? 'Показати менше' : moreText;
+          button.setAttribute('aria-expanded', String(expanded));
         });
-
-        document.querySelectorAll('[data-more-button]').forEach(button => {
-            const section = button.closest('section');
-            const moreText = button.textContent.trim();
-            let expanded = false;
-
-            button.setAttribute('aria-expanded', 'false');
-
-            button.addEventListener('click', () => {
-                expanded = !expanded;
-
-                section.querySelectorAll('[data-extra]').forEach(card => {
-                    card.classList.toggle(card.dataset.hideClass, !expanded);
-                });
-
-                button.textContent = expanded ? 'Показати менше' : moreText;
-                button.setAttribute('aria-expanded', String(expanded));
-            });
-        });
+      });
     </script>
-
-</body>
+  </body>
 </html>
