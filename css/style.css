@@ -289,3 +289,15 @@ section:has([data-more-button]) .mx-auto.grid:not(:has(> :nth-child(3))) + div {
         transition-duration: 0.01ms !important;
     }
 }
+@media (max-width: 767px) {
+    .hero {
+        min-height: 0 !important;      /* прибираємо жорсткі 700px */
+        background-size: cover;
+        background-position: 40%;
+    }
+
+    .hero > div {
+        padding-top: 5rem !important;   /* було 5rem зверху і знизу */
+        padding-bottom: 5rem !important;
+    }
+}
