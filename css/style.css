@@ -301,3 +301,20 @@ section:has([data-more-button]) .mx-auto.grid:not(:has(> :nth-child(3))) + div {
         padding-bottom: 5rem !important;
     }
 }
+
+input[type="date"] {
+    -webkit-appearance: none;
+    appearance: none;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 2.75rem;       /* iOS інакше стискає висоту поля */
+    text-align: left;
+}
+
+input[type="date"]::-webkit-date-and-time-value {
+    text-align: left;          /* вирівнює дату по лівому краю, як в інших полях */
+    margin: 0;
+}
