@@ -27,21 +27,19 @@ const MIN_MESSAGE_LENGTH = 10;  // мінімальна довжина пові�
 
 const STATE_CLASSES = {
     normal: [
-        'border-muted/60',
-        'hover:border-muted',
-        'focus-visible:border-primary',
+        'border-border',
+        'bg-white',
         'focus-visible:outline-primary'
     ],
     error: [
         'border-red-500',
-        'hover:border-red-500',
-        'focus-visible:border-red-500',
+        'bg-white',
         'focus-visible:outline-red-500'
     ],
+    // Правильне значення: рамка й заливка стають трохи темнішими (як у планері)
     success: [
-        'border-green-500',
-        'hover:border-green-500',
-        'focus-visible:border-green-500',
+        'border-muted/40',
+        'bg-secondary',
         'focus-visible:outline-primary'
     ]
 };

@@ -9,7 +9,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
@@ -29,7 +29,7 @@
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
-                        heading: ['Archivo Black', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
                     },
                 },
             },
@@ -115,40 +115,54 @@
                 </p>
             </header>
 
-            <form class="mx-auto grid max-w-[1500px] grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+            <form class="mx-auto grid max-w-[1500px] grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:items-start">
                 <div class="rounded-xl border border-border bg-white p-5 sm:p-7">
                     <h2 class="mb-5 mt-0 font-heading text-base font-bold sm:text-[17px]">Параметри подорожі</h2>
                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div class="sm:col-span-2"><div class="flex flex-col gap-1.5">
-                        <span id="dest-label" class="text-xs font-semibold text-primary">Напрямок</span>
-                        <div class="relative" data-dropdown>
-                            <input type="hidden" name="destination" value="">
-                            <button type="button" class="flex w-full items-center justify-between gap-3 rounded-lg border border-border bg-white px-4 py-2.5 text-left text-sm text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="dest-label">
-                                <span data-dropdown-value>Обери країну або місто</span>
-                                <i class="fa-solid fa-chevron-down text-[11px] text-primary transition-transform duration-200" aria-hidden="true"></i>
-                            </button>
-                            <ul class="absolute left-0 top-full z-20 mt-2 hidden w-full rounded-xl border border-border bg-white p-1.5 shadow-md" role="listbox" aria-labelledby="dest-label">
-                                <li role="option" data-value="" aria-selected="true" tabindex="-1" class="cursor-pointer rounded-lg px-3 py-2.5 text-sm text-primary hover:bg-secondary aria-selected:bg-secondary aria-selected:font-semibold">Обери країну або місто</li>
-                                <li role="option" data-value="italy" aria-selected="false" tabindex="-1" class="cursor-pointer rounded-lg px-3 py-2.5 text-sm text-primary hover:bg-secondary aria-selected:bg-secondary aria-selected:font-semibold">Італія</li>
-                                <li role="option" data-value="france" aria-selected="false" tabindex="-1" class="cursor-pointer rounded-lg px-3 py-2.5 text-sm text-primary hover:bg-secondary aria-selected:bg-secondary aria-selected:font-semibold">Франція</li>
-                                <li role="option" data-value="spain" aria-selected="false" tabindex="-1" class="cursor-pointer rounded-lg px-3 py-2.5 text-sm text-primary hover:bg-secondary aria-selected:bg-secondary aria-selected:font-semibold">Іспанія</li>
-                                <li role="option" data-value="greece" aria-selected="false" tabindex="-1" class="cursor-pointer rounded-lg px-3 py-2.5 text-sm text-primary hover:bg-secondary aria-selected:bg-secondary aria-selected:font-semibold">Греція</li>
-                                <li role="option" data-value="portugal" aria-selected="false" tabindex="-1" class="cursor-pointer rounded-lg px-3 py-2.5 text-sm text-primary hover:bg-secondary aria-selected:bg-secondary aria-selected:font-semibold">Португалія</li>
-                                <li role="option" data-value="germany" aria-selected="false" tabindex="-1" class="cursor-pointer rounded-lg px-3 py-2.5 text-sm text-primary hover:bg-secondary aria-selected:bg-secondary aria-selected:font-semibold">Німеччина</li>
-                            </ul>
+                    <!-- Країна: поле з підказками під час введення (логіка — js/destinations-picker.js) -->
+                    <div class="flex flex-col gap-1.5 sm:col-span-2">
+                        <label for="country-input" class="text-xs font-semibold text-primary">Країна</label>
+                        <div class="relative" data-combobox="country">
+                            <!-- Приховане значення, яке читає калькулятор -->
+                            <input type="hidden" name="destination" value="" data-combobox-value>
+                            <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true"></i>
+                            <input id="country-input" type="text" role="combobox" autocomplete="off" spellcheck="false" aria-autocomplete="list" aria-expanded="false" aria-controls="country-list" aria-describedby="country-error" aria-invalid="false" placeholder="Почніть вводити країну" data-combobox-input class="w-full rounded-lg border border-border bg-white py-2.5 pl-10 pr-10 text-sm text-primary placeholder:text-muted transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted">
+                            <button type="button" tabindex="-1" aria-label="Показати всі країни" data-combobox-toggle class="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg text-primary transition-colors hover:bg-secondary disabled:cursor-not-allowed disabled:text-muted disabled:hover:bg-transparent"><i class="fa-solid fa-chevron-down text-[11px]" aria-hidden="true"></i></button>
+                            <ul id="country-list" role="listbox" aria-label="Країни" class="absolute left-0 top-full z-30 mt-2 hidden max-h-64 w-full overflow-y-auto rounded-xl border border-border bg-white p-1.5 shadow-md"></ul>
                         </div>
-                    </div></div>
+                        <p id="country-error" class="m-0 hidden text-xs leading-snug text-red-600" aria-live="polite">Оберіть країну зі списку.</p>
+                    </div>
+                    <!-- Місто: поле з підказками під час введення (логіка — js/destinations-picker.js) -->
+                    <div class="flex flex-col gap-1.5 sm:col-span-2">
+                        <label for="city-input" class="text-xs font-semibold text-primary">Місто</label>
+                        <div class="relative" data-combobox="city">
+                            <!-- Приховане значення, яке читає калькулятор -->
+                            <input type="hidden" name="city" value="" data-combobox-value>
+                            <i class="fa-solid fa-location-dot pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true"></i>
+                            <input id="city-input" type="text" role="combobox" autocomplete="off" spellcheck="false" aria-autocomplete="list" aria-expanded="false" aria-controls="city-list" aria-describedby="city-hint city-error" aria-invalid="false" placeholder="Спершу оберіть країну" disabled data-combobox-input class="w-full rounded-lg border border-border bg-white py-2.5 pl-10 pr-10 text-sm text-primary placeholder:text-muted transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted">
+                            <button type="button" tabindex="-1" aria-label="Показати міста" disabled data-combobox-toggle class="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg text-primary transition-colors hover:bg-secondary disabled:cursor-not-allowed disabled:text-muted disabled:hover:bg-transparent"><i class="fa-solid fa-chevron-down text-[11px]" aria-hidden="true"></i></button>
+                            <ul id="city-list" role="listbox" aria-label="Міста" class="absolute left-0 top-full z-30 mt-2 hidden max-h-64 w-full overflow-y-auto rounded-xl border border-border bg-white p-1.5 shadow-md"></ul>
+                        </div>
+                        <p id="city-hint" class="m-0 text-xs leading-snug text-muted">Місто стане доступним після вибору країни.</p>
+                        <p id="city-error" class="m-0 hidden text-xs leading-snug text-red-600" aria-live="polite">Оберіть місто зі списку.</p>
+                    </div>
                     <div class="flex flex-col gap-1.5">
                         <label for="start" class="text-xs font-semibold text-primary">Дата початку</label>
-                        <input id="start" name="start" type="date" class="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-primary placeholder:text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                        <input id="start" name="start" type="date" class="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-primary placeholder:text-muted transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" aria-describedby="start-error" aria-invalid="false">
+                        <!-- Повідомлення про помилку дати (керує js/widget.js) -->
+                        <p id="start-error" class="m-0 hidden text-xs leading-snug text-red-600" aria-live="polite"></p>
                     </div>
                     <div class="flex flex-col gap-1.5">
                         <label for="days" class="text-xs font-semibold text-primary">Кількість днів</label>
-                        <input id="days" name="days" type="number" min="1" max="30" value="7" class="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-primary placeholder:text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                        <input id="days" name="days" type="number" min="1" max="365" step="1" value="7" required inputmode="numeric" aria-describedby="days-error" aria-invalid="false" class="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-primary placeholder:text-muted transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                        <!-- Повідомлення про помилку кількості днів (керує js/widget.js) -->
+                        <p id="days-error" class="m-0 hidden text-xs leading-snug text-red-600" aria-live="polite"></p>
                     </div>
                     <div class="flex flex-col gap-1.5">
-                        <label for="people" class="text-xs font-semibold text-primary">Кількість подорожніх</label>
-                        <input id="people" name="people" type="number" min="1" max="20" value="2" class="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-primary placeholder:text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                        <label for="people" class="text-xs font-semibold text-primary">Кількість мандрівників</label>
+                        <input id="people" name="people" type="number" min="1" max="100" step="1" value="2" required inputmode="numeric" aria-describedby="people-error" aria-invalid="false" class="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-primary placeholder:text-muted transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                        <!-- Повідомлення про помилку кількості мандрівників (керує js/widget.js) -->
+                        <p id="people-error" class="m-0 hidden text-xs leading-snug text-red-600" aria-live="polite"></p>
                     </div>
                     <div class="flex flex-col gap-1.5">
                         <span id="budget-label" class="text-xs font-semibold text-primary">Бюджет</span>
@@ -185,10 +199,46 @@
                             <label class="cursor-pointer"><input type="radio" name="pace" value="active" class="peer sr-only"><span class="inline-flex items-center gap-2 rounded-lg border border-border bg-white px-3.5 py-2 text-xs font-medium text-primary transition-colors hover:bg-secondary peer-checked:border-primary peer-checked:bg-primary peer-checked:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-primary sm:text-[13px]"><i class="fa-solid fa-person-walking text-[13px]" aria-hidden="true"></i>Насичений</span></label>
                         </div>
                     </fieldset>
+                    <!-- Побажання (перенесено з правої картки, щоб вирівняти висоту колонок) -->
+                    <div class="flex flex-col gap-1.5 sm:col-span-2">
+                        <label for="wishes" class="text-xs font-semibold text-primary">Побажання до маршруту</label>
+                        <textarea id="wishes" name="wishes" rows="4" placeholder="Наприклад: більше малих міст і жодних ранніх підйомів" class="block min-h-[120px] w-full resize-y rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-primary placeholder:text-muted transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"></textarea>
+                    </div>
                     </div>
                 </div>
 
                 <aside class="flex flex-col rounded-xl bg-primary p-5 text-white sm:p-7" aria-label="Що ми врахуємо">
+                    <!-- ===== КАЛЬКУЛЯТОР: блок результату (логіка розрахунку — js/widget.js) ===== -->
+                    <div id="trip-result" class="mb-6 rounded-lg border border-white/20 bg-white/10 p-4 sm:p-5" role="group" aria-labelledby="trip-result-title">
+                        <h2 id="trip-result-title" class="mb-3 mt-0 font-heading text-base font-bold text-white sm:text-[17px]">Орієнтовна вартість</h2>
+
+                        <!-- Загальна сума. aria-live: скрінрідер оголошує нове значення після зміни параметрів -->
+                        <p id="trip-total" class="m-0 break-words font-heading text-[26px] font-bold leading-none text-white sm:text-[34px] lg:text-[28px] xl:text-[34px]" aria-live="polite" aria-atomic="true">—</p>
+
+                        <!-- Підказка або повідомлення про стан (наприклад, «Оберіть напрямок») -->
+                        <p id="trip-hint" class="mb-0 mt-2 text-[13px] leading-snug text-text-light">Оберіть країну, щоб побачити орієнтовну вартість</p>
+
+                        <!-- Деталі розрахунку: показуються лише за коректних даних -->
+                        <dl id="trip-details" class="mb-0 mt-4 hidden flex-col gap-2 text-[13px]">
+                            <div class="flex items-baseline justify-between gap-3">
+                                <dt class="text-text-light">На людину</dt>
+                                <dd id="trip-per-person" class="m-0 font-semibold text-white">—</dd>
+                            </div>
+                            <div class="flex items-baseline justify-between gap-3">
+                                <dt class="text-text-light">На людину за добу</dt>
+                                <dd id="trip-per-day" class="m-0 font-semibold text-white">—</dd>
+                            </div>
+                        </dl>
+
+                        <!-- Статус бюджету: «У межах бюджету» / «Перевищує бюджет» -->
+                        <p id="trip-budget-status" class="mb-0 mt-3 hidden rounded-md px-3 py-2 text-[13px] font-medium leading-snug"></p>
+
+                        <!-- Примітка про сезон, якщо дату не вказано -->
+                        <p id="trip-season-note" class="mb-0 mt-3 hidden text-xs leading-snug text-text-light"></p>
+
+                        <p class="mb-0 mt-3 text-[11px] leading-snug text-text-light">Орієнтовна оцінка проживання, їжі та місцевого транспорту без вартості квитків до країни. Це не пропозиція бронювання.</p>
+                    </div>
+
                     <h2 class="mb-4 mt-0 font-heading text-base font-bold text-white sm:text-[17px]">Що ми врахуємо</h2>
                     <ul class="m-0 mb-5 flex list-none flex-col gap-3 p-0">
                         <li class="flex items-start gap-3 text-[13px] leading-snug text-text-light"><i class="fa-solid fa-check mt-0.5 text-[12px] text-white" aria-hidden="true"></i>Твої інтереси й темп подорожі</li>
@@ -196,8 +246,6 @@
                         <li class="flex items-start gap-3 text-[13px] leading-snug text-text-light"><i class="fa-solid fa-check mt-0.5 text-[12px] text-white" aria-hidden="true"></i>Час на переїзди між містами</li>
                         <li class="flex items-start gap-3 text-[13px] leading-snug text-text-light"><i class="fa-solid fa-check mt-0.5 text-[12px] text-white" aria-hidden="true"></i>Сезон і кількість денного світла</li>
                     </ul>
-                    <label for="wishes" class="mb-1.5 text-xs font-semibold text-white">Побажання до маршруту</label>
-                    <textarea id="wishes" name="wishes" rows="5" placeholder="Наприклад: більше малих міст і жодних ранніх підйомів" class="mb-5 w-full flex-1 resize-none rounded-lg border border-white/25 bg-white/10 px-4 py-2.5 text-sm text-white placeholder:text-white/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"></textarea>
                     <button type="button" disabled class="inline-flex cursor-not-allowed items-center justify-center whitespace-nowrap rounded-lg bg-white px-5 py-2.5 text-sm font-medium text-primary opacity-60">Створити маршрут</button>
                     <p class="mt-4 text-xs leading-relaxed text-text-light">Маршрут не буде збережено або створено до підключення серверної логіки.</p>
                 </aside>
@@ -409,6 +457,8 @@
                 label.textContent = option.textContent;
                 button.classList.toggle('text-muted', option.dataset.value === '');
                 button.classList.toggle('text-primary', option.dataset.value !== '');
+                // Повідомляємо інші скрипти (калькулятор) про зміну значення списку
+                input.dispatchEvent(new Event('change', { bubbles: true }));
                 setOpen(false);
                 button.focus();
             }
@@ -440,6 +490,12 @@
             });
         });
     </script>
+
+    <!-- Вибір країни та міста (поля з підказками) -->
+    <script src="js/destinations-picker.js"></script>
+
+    <!-- Калькулятор орієнтовної вартості подорожі (логіка розрахунку та перевірка даних) -->
+    <script src="js/widget.js"></script>
 
 </body>
 </html>
